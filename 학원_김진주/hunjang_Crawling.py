@@ -20,7 +20,11 @@ def get_hunjang(url,pg):
     if pg <=1 :
         soup = soup.find_all(class_ = 'adRc-inner')[5] #1:스페셜, 2:포커스 3:플러스 4:리스트 5일반
     else:
-        soup = soup.find_all(class_ = 'adRc-inner')[0] #두번째 페이지부터 바로
+        try:
+            soup = soup.find_all(class_ = 'adRc-inner')[0] #두번째 페이지부터 바로
+        except:
+            print("이 페이지부턴 검색내용이 없음")
+            return []
 
     table = soup.find('table', class_='retbl-col')
     rows = table.find_all('tr')
@@ -45,10 +49,12 @@ def get_dataframe():
     
     df_fin = pd.DataFrame()
 
-    for pg in range(1,31): #마지막페이지30
-        url = "https://www.hunjang.com/adopt/adopt_total_list.asp?schSubject=01&schSubject_name=%B1%B9%BE%EE&schSubject=02&schSubject_name=%BF%B5%BE%EE&schSubject=03&schSubject_name=%BC%F6%C7%D0&nPage="+str(pg)+"&nPageSize=0&sort_order=&textkey=&textword="
+    for pg in range(1,31): #예상) 마지막페이지30, 그보다 적으면 중간에 break
+        url = "https://www.hunjang.com/adopt/adopt_total_list.asp?schSubject=01&schSubject_name=%B1%B9%BE%EE&schSubject=02&schSubject_name=%BF%B5%BE%EE&schSubject=03&schSubject_name=%BC%F6%C7%D0&nPage="+str(pg)+"&nPageSize=20&sort_order=&textkey=&textword="
         data_list = get_hunjang(url,pg)
-        
+        if len(data_list) == 0:
+            break
+
         df = pd.DataFrame(data_list,columns=['academy_name','title','local','subject','start_date','end_date'])
         df_fin = pd.concat([df_fin,df],axis=0,ignore_index=True)
 
@@ -57,11 +63,11 @@ def get_dataframe():
 if __name__ == '__main__':
 
     today_date = datetime.today().strftime("%Y-%m-%d")
-    df = get_dataframe()
+    df_fin = get_dataframe()
     #df.head()
 
     filename = today_date+'-hunjang_crawling.csv'  
-    df_fin.to_csv('./'+filename,encoding='utf-8-sig')
+    df_fin.to_csv('./AutoCrawling/'+filename,encoding='utf-8-sig')
     print("save csv!")
 
 ## 문제점 : 마지막페이작 계속 바뀜
