@@ -1,3 +1,5 @@
+참고 : https://dbdiagram.io/d/614419c5825b5b014606664b
+
 Table "학군"{
   "학군ID" int 
   "법정동코드" int [pk]
