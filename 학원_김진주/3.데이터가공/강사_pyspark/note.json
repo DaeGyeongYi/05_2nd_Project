@@ -1,0 +1,877 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n#### 현재데이터 : 9월13일 크롤링데이터 -\u003e 매일 크롤링하게 변경해야함\n#### 처리해야할 작업\n    1. 매일 크롤링한 csv 전체 다 가져오기\n    2. 최종테이블 저장 : 필요한컬럼- 법정동명(local), 학원명(academy_name),과목명(subject)\n\n#### 알고자 하는 내용\n    - 채용공고가 자주 올라오는 학원이름\n    \n#### 생각해봐야할 내용\n    - 어떻게 계속 spark로 df 만드는걸 반복적으로 수행할지\n    - 어떻게 계속 mysql에 저장할지\n    - 어떻게 크롤링한 데이터에서 count를 할지\n    - 중복되는 공고는 어떻게 처리해야할지?",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 11:46:16.497",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": false,
+        "tableHide": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch4\u003e현재데이터 : 9월13일 크롤링데이터 -\u0026gt; 매일 크롤링하게 변경해야함\u003c/h4\u003e\n\u003ch4\u003e처리해야할 작업\u003c/h4\u003e\n\u003cpre\u003e\u003ccode\u003e1. 매일 크롤링한 csv 전체 다 가져오기\n2. 최종테이블 저장 : 필요한컬럼- 법정동명(local), 학원명(academy_name),과목명(subject)\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e알고자 하는 내용\u003c/h4\u003e\n\u003cpre\u003e\u003ccode\u003e- 채용공고가 자주 올라오는 학원이름\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e생각해봐야할 내용\u003c/h4\u003e\n\u003cpre\u003e\u003ccode\u003e- 어떻게 계속 spark로 df 만드는걸 반복적으로 수행할지\n- 어떻게 계속 mysql에 저장할지\n- 어떻게 크롤링한 데이터에서 count를 할지\n- 중복되는 공고는 어떻게 처리해야할지?\n\u003c/code\u003e\u003c/pre\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1631961059254_1499342430",
+      "id": "20210918-103059_2130654289",
+      "dateCreated": "2021-09-18 10:30:59.254",
+      "dateStarted": "2021-09-18 11:45:29.737",
+      "dateFinished": "2021-09-18 11:45:29.754",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n#### 1. all_df : 크롤링한 csv전체 합침",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 11:38:54.289",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch4\u003e1. all_df : 크롤링한 csv전체 합침\u003c/h4\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1631965092474_72067582",
+      "id": "20210918-113812_2143465242",
+      "dateCreated": "2021-09-18 11:38:12.475",
+      "dateStarted": "2021-09-18 11:38:54.292",
+      "dateFinished": "2021-09-18 11:38:54.309",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nall_df \u003d spark.read.csv(\u0027./data/학원_Data/학원_강사채용\u0027,header\u003d\u0027True\u0027)\nall_df.count() #573+550\n",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 11:38:10.086",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "1123"
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://172.17.0.2:4040/jobs/job?id\u003d12",
+            "http://172.17.0.2:4040/jobs/job?id\u003d13"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1631961141869_753221956",
+      "id": "20210918-103221_1231861000",
+      "dateCreated": "2021-09-18 10:32:21.869",
+      "dateStarted": "2021-09-18 11:37:39.532",
+      "dateFinished": "2021-09-18 11:37:40.017",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nall_df.createOrReplaceTempView(\"all_tutor\")",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 11:39:13.646",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1631961138733_1839179698",
+      "id": "20210918-103218_693402166",
+      "dateCreated": "2021-09-18 10:32:18.733",
+      "dateStarted": "2021-09-18 11:39:13.740",
+      "dateFinished": "2021-09-18 11:39:14.163",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect count(distinct(academy_name)) from all_tutor -- 전체row수 1123, 중복 제거한 학원이름개수 661 \u003d 중복되는게 존재 ",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 11:40:55.783",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "count(DISTINCT academy_name)": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "count(DISTINCT academy_name)\n661\n"
+          },
+          {
+            "type": "TEXT",
+            "data": ""
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://172.17.0.2:4040/jobs/job?id\u003d16"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1631964838257_986367356",
+      "id": "20210918-113358_1898855729",
+      "dateCreated": "2021-09-18 11:33:58.273",
+      "dateStarted": "2021-09-18 11:40:18.373",
+      "dateFinished": "2021-09-18 11:40:23.171",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect academy_name,count(academy_name) from all_tutor group by academy_name ",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 11:43:44.761",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "academy_name": "string",
+                      "count(academy_name)": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "academy_name\tcount(academy_name)\n황은영국어 2관\t2\nYBM잉글루\t2\n영매쓰수학학원\t2\n스카이 학원\t2\n깊은생각국어학원\t1\n솔로몬 영재학원\t2\n와이즈만 관악센터\t2\n국풍2000 석촌관\t2\n윤선생IGSE아카데미양산가...\t2\n이강학원\t2\n수학의힘 강동 본원\t2\n웰 영수 전문학원\t2\n문법의신\t1\n중앙학원\t4\n메이저수학학원\t2\nM2수학학원\t2\n정철어학원Jr 서창캠퍼스\t1\n에모리 영어\t2\n닥터수밀크잉글리쉬\t2\n미래를 여는 창\t2\n소리영어수리수학\t2\n생각수학\t2\n루시앤입시학원\t2\n김요안수학학원\t2\n마에스트로 수학전문학원\t1\n제이포커스잉글리쉬\t2\nELI어학원\t2\n잉글리쉬무무고잔제5학습...\t2\n혜윰플러스학원\t2\n이루다수학과학학원\t1\n자유자재학원 알파관\t2\n연세위너스학원\t2\n스피드영어학원\t2\n이룸 국영수 학원\t2\n공부독립\t1\n김태형영어학원\t1\n성북종로학원\t2\n보스턴영어수학학원\t2\n지니리영어학원\t2\n비투게더\t2\nTNC수학원\t2\n다마스쿠스 학원\t2\n종로엠스쿨학원\t2\n미래엔 사고력수학\t2\n백년나무교육\t2\n보라매유베스타어학원\t1\n생각하는황소 동작학원\t2\n강남펜타스학원\t2\nSAGE 영어학원\t2\n뮤엠영어시드니캠퍼스\t1\n이앤서학원\t2\n영어종결센터\t2\n도봉 강태우어학원\t2\n알파영어\t2\n수림수학학원\t1\n광진ELC어학원\t1\n와이즈만영재교육 잠실센...\t2\n탑 고려보습학원\t2\n이상숙어학원\t2\n후곡에듀플렉스학원\t2\n주식회사 포스에듀\t2\n플랜에이수학학원\t2\n청람 학원\t1\n김포 채움 학원\t1\n사이매쓰학원\t2\n티엘수능입시학원\t2\n정선생영어전문학원\t1\nGnB어학원 평내캠퍼스\t1\n공부자신감\t2\n오르다샘앤플레이스\t1\nMEKS학원\t1\nCSJ영어학원\t2\n생각하는 황소 화정\t2\n공신수학학원\t2\n뉴교연학원\t1\n종로학원 하늘교육\t2\n더쎈학원\t2\n더하이츠동탄학원\t1\n와이즈만 영재교육 노원센...\t1\n고앤정수학학원\t1\nAlfa of Math\t2\nJulie 영어수학\t2\n생각하는황소광진학원\t1\nmath153수학학원\t2\nFTK잉글리쉬\t2\n해법에듀학원\t1\n비오비에듀학원\t2\n삼성영어\t2\n일퍼센트수학원\t2\n한뜻학원\t1\n상상학원\t1\n제이엠아이수학학원\t2\n에벤학원\t2\n(주)입실론에듀\t1\n(주)다원교육\t2\nEiE비상매스캔학원\t2\n씨아이에듀입시학원\t1\n에듀피아\t2\n시그마베스트학원\t2\n아이비프렙\u0026아르케 아카데...\t2\n대학입시외국어학원\t2\n더매쓰수학전문\t2\n투스카이수학과학학원\t2\n더쎈영수학원\t2\n파스칼학원\t2\n맨투맨영수학원\t2\nTM 학원\t1\nEiE 서창캠퍼스\t1\n마테마타수학학원\t2\n진명학원\t2\n이지베스트학원\t2\n대방웰이스턴영어\t2\n카르마학원\t1\nYBM교육\t2\n힘수학 동천지점\t1\n엠베스트SE 이산캠퍼스\t2\n이라랭귀지학원\t1\n고석용현탑학원\t2\n수학의시선\t1\n김정연에듀\t1\n은 수학영어학원\t2\n시대에듀\t2\n지앤조영수학원\t2\n하이블영수학원\t2\n백선화수학학원\t2\n뿌리깊은국어학원\t2\n인천원탑영수전문학원\t2\n대한논리속독염창학원\t2\n이티영어전문학원\t1\n뿌리와샘\t1\n육일수학학원\t2\n유아감성놀이 리틀포레스...\t1\n수학사이다학원\t2\n정철영어주니어서산캠퍼스\t2\n리앤슨잉글리쉬\t1\n아이엘(IL)영어n수학보습...\t2\n수학공감학원\t2\n홍익보습학원\t1\n시매쓰 오산센터\t2\n압구정한길국어학원\t1\n하이준\t1\n써큘러스리더 학습클리닉\t1\n연학원\t1\n청라 드림교육센터\t2\n고대수학학원\t1\n배진영수전문학원\t2\n뱅크스리어학원\t1\n주식회사 교연학원/LFA키...\t2\n핵수학보습학원\t1\nHabit 9 어학원\t2\nIELC어학원\t2\n탑아카데미학원\t1\n그루영어\t2\n멘토아카데미\t2\n생각하는수학플러스어학원\t2\n리즈멘토 스터디\t2\n월성YEP영어학원\t1\nhalo 헤일로수학과학학원\t2\n대치에스학원\t1\n강동하이레벨수학학원\t2\n세곡소마수학학원\t1\n정진학원\t2\n플랜에이수학\t2\n서울에듀학원\t2\n더채움해법영어수학학원\t2\n영통청담어학원 (주)나은\t1\n쎈수학 초중고전문학원\t1\n아이린영어학원\t1\n찬수학전문학원\t1\n정현석 수학명가 학원\t2\n아발론신도림어학원\t2\neasy윤 수학영어\t2\n필과수수학과학학원\t2\n한수연수학전문학원\t1\n스터디온학원\t2\n개념폴리아학원 서초관\t2\nthe 막강학원\t1\n앤써학원\t2\n역곡페르마보습학원\t1\n수타민 수학학원\t2\n프렌잉글리시 \u0026차이랑 일...\t2\n인사이트학원\t2\n인피니트영수전문학원\t2\n이튼클래스\t1\n이원수학학원\t2\n하이츠수학\t2\n채움학원\t2\n오세용 어학원\t2\n다니엘수학보습학원\t1\n비트영어학원\t2\n상상이상학원\t2\n지노수학과학 학원\t2\nTMS이룸수학학원\t2\n킴스잉글리시\t1\n대원학원\t2\n(주)잇올\t2\n행복한수학영어학원\t1\n리한에듀영어학원\t1\nELL학원\t2\n현대해법영어보습학원\t2\n엠리더스향남학원\t2\nSNU수학학원\t1\n사하STRT\t1\n센트럴1리딩클럽풍무학원\t2\nSNU 영수과 전문학원\t2\n이룸학원\t1\n청람학원\t1\n비욘드잉글리쉬 송도랜드...\t2\n홍수학영어입시학원\t2\n오르다영수전문학원\t1\n천종현사고력수학\t2\ncore english\t1\n평내지1230학원\t1\n서원학원\t1\n이경직 입시국어 클리닉\t2\n엠케이수학\t2\n메리트수학학원\t2\n수학의 봄날 수학학원\t1\n비욘드잉글리쉬\t1\n매쓰블릭수학학원\t2\n더완벽한수학학원\t2\n연세학원\t2\n매쓰코어수학전문학원\t1\n수학보호구역\t2\n교원더퍼스트플래너스수학...\t2\nJYP영어학원\t2\n옥정대성N학원\t1\n미래탐구학원\t1\n미래인재학원\t2\n빌더스 인텐시브\t2\n매씽에듀\t2\n주식회사 와이디아카데미\t2\n대치학원\t4\n미래학원\t2\n탑스카이학원\t2\nGnB\t1\n파워영재학원\t1\n탑지성학원\t2\n설연고학원\t2\nU2M감일캠퍼스\t2\n강한학원\t2\n구정남수학전문학원\t1\n라온학원\t2\n플라밍고 잉글리쉬\t1\n청어람국어 입시학원\t2\n효성수학학원\t1\n김정은 수학\t2\n더나은학원\t2\n해법독서논술 김주희국어\t2\n뉴베리어학원\t2\n대치스터디\t2\n페르마수학보습학원\t1\n성동뉴타운 소마학원\t2\n리드N영어수학학원\t2\n올리고 영수학원\t2\n최고수보습학원\t2\n히파티아수학학원\t1\n에스엔티학원\t1\n행복한청명영어학원\t1\nEnP학원\t1\n미들하이이스턴학원\t1\n관악뉴스터디\t2\n윤선생igse여주가남학원\t1\n명인학원\t2\n주노영어\t2\n제카영어학원\t2\n오르다샘앤클래스광교학원\t2\n에이플러스\t2\n무결학원\t2\n(주)이씨엔교육\t1\n하이영수학원\t2\n피앤케이학원\t2\n삼성영어해법수학이문학원\t2\n차수학앤국풍2000학원\t2\n한강와이즈만영재교육학원\t2\n동화세상에듀코\t3\n공주쌤수학학원\t2\n이신학원\t2\n루체테어학원 가재울캠퍼...\t2\nTE MATH\t2\n대성학원\t2\n칼수학전문학원\t1\n글오우 융합독서 프로젝트...\t1\n수리원 수학학원\t1\n대월아카데미\t2\n진건양쌤학원\t1\n세인학원\t1\n정상어학원 성동분원\t1\n대치동토모수학\t2\n자호수학\t2\n맥스탑플러스입시학원\t1\n시대인재디학원\t1\n와이즈만영재교육성남센터\t1\n윤선생 스마트 랜드\t1\n지피지기학원\t2\n아발론동대문점\t1\n카이스트수학과학 학원\t2\n에버윈영어학원\t1\n참수학학원\t1\nStudy Factory\t2\n제이원에듀\t2\n티앤비영수전문학원\t2\n현수학전문학원\t2\n삼성영어 쎈수학 러닝센터...\t2\n강한수학학원\t2\n에스학원\t3\n밀당영어\t2\n11월의혁명 영어전문학원\t2\n코람데오 어학원\t1\n나정향영어학원\t1\nTS학원\t2\n삼광학원\t2\n탑씨크리트 교육\t2\n스터디백도씨학원\t1\n진아트잉글리쉬\t2\n정철영어주니어동호어학원\t2\n한솔플라톤(한솔교육)\t2\n린쌤영어학원\t1\n한수위국어학원\t2\n서강영어학원\t2\n류다현 수학전문학원\t2\n글로벌리더스어학원\t1\n성공의신화학원\t2\nHerald Prime\t1\nMATH200\t1\n힘수학\t2\n제이스카이학원\t1\n수미상관한국어학원\t1\n대두수학학원\t2\n저스트원학원\t2\n쌤종합학원\t2\n강의하는 아이들 백마캠퍼...\t2\n신사고영어보습학원\t2\nEKEDU(주)\t2\n정오수학학원\t1\n임팩트7영어학원\t1\nSM에듀\t2\n메사인재관학원\t2\n서율학원\t1\n셈율수학학원\t1\n(주)EDUCO\t1\n동화세상에듀코 송파지사\t1\n뉴스트학원\t2\n제스(J.E.S)영어학원\t2\n윤선생 IGSE\t2\n더채움수학전문학원\t2\n김지민영어학원\t2\n파머스영어능동캠퍼스학원\t2\n아나톨레수학영어학원\t1\n함께하는수학학원\t1\n강북 세일학원\t2\n선진수학보습학원\t2\n메가스터디교육\t3\n논산최강\t1\n위너스올인학원\t1\n한맥국어전문학원\t1\n유베스트학원\t2\n퀸즈어학원\t1\n도농 시매쓰\t2\n와이키즈 마포센터\t2\n세종학원\t1\n춘천종로엠스쿨\t2\n일공구오국어학원\t2\n운정 연솔학원\t2\n더웰학원\t2\n토크스테이션\t2\n뮤엠영어세곡학원\t2\n매쓰플랜수학전문학원\t2\n캐슬The오름수학\t2\n유클리드 수학학원\t1\nPTM영수전문학원\t2\n김홍학원\t1\n연세더탑학원\t1\n(주) 서초아발론\t2\n이지스터디학원\t2\n이현주어학원\t2\nVEL영어학원\t1\n맥영수전문학원\t2\n전문가집단\t2\n하이스트 금천\t2\n삼성영어창일교실학원\t2\n송도노른자프레임수학학원\t1\n하이클래스 입시학원\t2\n정철어학원\t1\n라플라스수학학원\t1\nJTC어학원\t1\n유투엠수학학원\t2\n미투스카이 수학전문학원\t2\n수학몬스터대치학원\t2\n강서펜타곤학원\t2\n하늘교육 남동에듀올지점\t1\n프라임에듀학원\t1\n거산TOP수학학원\t2\n이지엠학원\t2\n명문학원\t2\n천지인입시학원\t1\n본수학전문학원\t2\n탑플러스보습\t1\n에버그린학원\t1\n(주)종로학원하늘교육\t2\n잉글리시아이 학원\t2\n다산 YBM잉글루\t1\n세진에듀학원\t1\n미사중앙삼성영어\u0026탑매쓰...\t2\n연세SM학원\t1\n차오름국어 씨엔에이논술\t1\n맨투맨학원\t1\n김영화영어학원\t2\n서대문페르마\t1\n바른적성\t1\n유라영어학원\t2\nsky미래연수학학원\t2\n제니스학원\t2\n헤일리학원\t2\n킴스에듀케어학원\t1\n대한논리속독고덕학원\t2\n쑥쑥리더스영어학원\t1\n다다아카데미\t1\n윤선생영어숲 가락보습학...\t1\nLETS영어수학전문학원\t2\n향남유투엠X로제타스톤학...\t1\n갈매지앤비영어학원\t2\n국제어학원당산캠퍼스\t2\n(주)동화세상에듀코\t4\n신수학영어학원\t2\n이도수학\t2\n다니엘 학원\t2\nBT수학학원\t2\n(주) 뉴런 에듀\t1\n막강학원.막강수학\t1\n더웨이즈수학앤영어학원\t1\nBMG\t1\n미래듀학원\t2\n페르마수학학원 성북캠퍼...\t2\n올인학원\t2\n멘토초중보습학원\t2\n더 퍼스트 학원\t1\n하이퍼리뷰학원\t2\n수도보습학원\t2\neie고려대국제어학원 원당\t1\n신의수학\t1\n정성학원\t2\n마이튜터\t1\n비상잉글리시아이 북위례...\t1\nReal 수학학원\t2\nFLA영어입시전문학원\t2\n(주)막강수학\t2\n플로우교육\t1\n문희영어학원\t2\n잉글리시버드\t2\nILKI어학원\t2\n이룸영어\t2\nLUCY어학원\t2\n고대수학원\t2\nThe큰수학학원\t2\nYes학원\t1\n프로매쓰(꽃피는수학)\t2\n미스터 밥 수학 학원\t2\n루카스\t1\n매스토크\t2\n평내카이로스 수학학원\t2\n국영수디스터디\t1\n일류학원\t2\n(주)아인슈타인교육\t2\n행당시매쓰\t1\n가온국악보습학원\t2\n목동한맥프라임학원\t1\n청명학원\t2\n아이필학원\t2\n아이엠지잉글리시\t2\njk영재학원\t1\n아이디어스 아카데미\t2\n엘에스이학원\t1\n드림하이영어학원\t1\n프랩학원\t2\n더블유 수학학원\t2\n한수위학원\t2\n팬더쌤영수전문학원\t2\n신승환영어학원\t2\nYBM 교육 어학원\t2\n오롬수학학원\t2\n포레스픽 영어학원\t2\n겨자씨의꿈\t2\n이엠스쿨학원\t2\n나랏말씀국어학원\t2\n동화세상 에듀코\t4\n게이트 영재센터\t2\n에스클래스영어전문학원\t2\n삼성영어화서화양학원\t2\n신혜영\t2\n동백정철어학원\t2\n재니 학원\t2\n일타수학학원\t2\n해나샘영어\t1\n대치영어연구소\t2\n김동수학원\t2\nlns수학학원\t2\n고려EIE 마석 송라 캠퍼스\t2\n청운학원\t2\n수만휘기숙학원본원\t2\n메타어학원\t2\n정왕냉정센수학윤선생시흥...\t2\n창의력발전소\u0026주인공\t1\n강의하는 아이들\t1\n서울탑수학학원\t2\n정상수학\t2\n프라우드 리더스 영어학원\t1\n국어 하기 좋은 날\t1\n대치프라임학원\t2\n수학대장 방배캠퍼스\t2\n광명 소마사고력 수학학원\t2\n삼성영어 서울서북부지사\t2\n김미현국어학원\t1\nThe System 영수전문\t2\n이스턴어학원\t4\n한솔영어수학학원\t2\n생각하는황소\t1\n잉글리쉬무무학원\t1\n삽자루수학학원\t1\n◈SD명문학원◈\t2\n아발론랭콘광주태전어학원\t2\n파란영어학원\t1\n엘리하이어학원\t2\n위에듀어학원\t2\n웨스턴영어학원\t2\n양나무수학학원\t2\nYBM ECC 마포서대문\t1\n더존학원\t1\n세정스카이학원\t1\n스카이(SKY)영수학원\t2\n지티지 수학학원\t2\n(주) 아이진로\t2\n아이빅학원\t2\n에듀코\t2\n가온국어논술학원\t2\n수지에이프릴어학원\t2\n일신학원\t1\n일산식사 소마사고력 수학...\t1\n김샘수학\u0026유베스타어학원\t2\n우리에듀\t2\n민병철주니어학원\t2\n더오름학원\t2\n위례 에듀플렉스\t1\n이룸수학학원\t1\n패럴랙스 학원\t1\n개런티영어학원\t2\n청담클루빌영어학원\t2\n팀수학\t1\n정인수학\t1\n모스트학원\t2\n정선수학전문학원\t2\n뉴욕센트럴영어학원\t1\n시대인재교육\t2\n쎈수학러닝센터공터영어학...\t1\n필탑학원\t2\n연세이룸학원\t2\n민락맨투맨학원\t2\n수학의숲\t2\n애니스터디\t1\n아이비츠학원\t2\n몬스터교육\t2\n일로드수학학원\t2\n마스터제이학원\t1\n에스엠에듀\t2\n지엘에스에듀\t2\n비원에듀\t2\n정철어학원 Jr.\t2\n텔레오입시전문학원\t2\n맨투맨학원호원센터\t2\n프린스턴수학전문\t2\n뮤엠영어곤지암학원\t2\n이엠학원\t3\n탑클래스종합학원\t2\n리딩타운어학원\u0026셀파수학\t2\n프리메카학원\t2\n(주)대치입시앤컨설팅학원\t2\n권진희국어학원\t2\n유어멘토학원\t1\nAPSUN앞선영어\t2\n함쌤영어\t1\n목동엠폴리\t1\n엘제이엠수학원\t2\n지앤비국제사관어학원\t2\n영어종결센터 소사벌학원\t2\nGnB영어전문학원(부평캠퍼...\t2\n옳은(ORUN)영어\t1\n고대학원\t1\nBLAST어학원\t2\n이지피지영어\t2\n에스알어학원\t2\n잉글리시에그노원\t2\n오롬어학원\t2\n한국영재교육센터수학학원\t2\n유신해법학원\t2\n영어종결센터 하안학원\t2\n열린학원\t1\nSummit 영어\t2\n명석수학전문학원\t2\n평촌설연고학원\t2\n강대  학원\t1\n쿤 어학원, 쿤 수학학원\t2\n한정원수학영어학원\t2\n연세수학원\t1\n삼성영어셀레나학원\t2\nJY 잉글리쉬아카데미\t2\n줄리킴영어학원\t2\n여의도JS학원\t2\n엠앤이학원\t2\n코어에듀\t2\n아산올림피아드\t2\n드림수학전문학원\t2\n바른학원\t2\n해솔학원\t2\n매쉬업 에듀케이션\t1\n대성다수인학원\t1\n서윤희 입시영어학원\t1\n샤인학원\t2\n아이맥스학원\t1\n이엔에스영어학원\t1\n목동ILS\t2\nEduStone\t2\n윤 수학학원\t1\n쌤과통하는수학\t1\n광수학\t2\n하이스트학원\t1\n대치동수스터디학원\t1\n지엔탑학원\t2\n참된인재학원\t2\n(주)매쓰홀릭\t1\n금오민족사관학원\t2\n날개달기 국어\t2\n수학사랑학원\t2\nG1230(양주점)\t2\nEIE 고려대국제어학원\t2\n강남SK학원\t2\nEIE 고려대 국제어학원 김...\t2\n이산국어 논술 학원\t2\n킹스키즈어학원\t2\n다원수타수학학원\t1\n나무아카데미\t2\n세계로학원\t2\nCDC(Catholic Dreams \u0026 Ch...\t2\n현앤장수학학원\t2\nVISION 컨설팅\t1\n바른영어학원\t2\n대한논리속독학원\t1\n온새미로입시학원\t2\n구조분석영어학원\t2\n유클리드 수학전문학원\t2\n다른학원\t2\n파이수학\t2\n민정수학전문학원\t1\n시매쓰영재교육학원\t1\n박쌤학원\t2\n서울탑텐 학습센터\t2\n마이러닝랩 입시학원\t2\nSAC잉글리시아이영어학원\t2\n현준쌤수학학원\t2\n블러썸영어학원\t2\n(주)건강한학습연구소\t2\n[중계]청담어학원\t2\n"
+          },
+          {
+            "type": "TEXT",
+            "data": ""
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://172.17.0.2:4040/jobs/job?id\u003d17",
+            "http://172.17.0.2:4040/jobs/job?id\u003d18",
+            "http://172.17.0.2:4040/jobs/job?id\u003d19",
+            "http://172.17.0.2:4040/jobs/job?id\u003d20",
+            "http://172.17.0.2:4040/jobs/job?id\u003d21"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1631965178512_1219816373",
+      "id": "20210918-113938_309887653",
+      "dateCreated": "2021-09-18 11:39:38.512",
+      "dateStarted": "2021-09-18 11:41:29.448",
+      "dateFinished": "2021-09-18 11:41:32.639",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from all_tutor where academy_name \u003d \u0027황은영국어 2관\u0027 -- 중복되는 채용공고",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 11:43:49.210",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "_c0": "string",
+                      "academy_name": "string",
+                      "title": "string",
+                      "local": "string",
+                      "subject": "string",
+                      "start_date": "string",
+                      "end_date": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "_c0\tacademy_name\ttitle\tlocal\tsubject\tstart_date\tend_date\n16\t황은영국어 2관\t동탄 중고등부 국어 과학 선생님 모십니다\t경기 화성시\t국어\t09.13\t10.12\n195\t황은영국어 2관\t동탄 중고등부 국어 과학 선생님 모십니다\t경기 화성시\t국어\t09.13\t10.12\n"
+          },
+          {
+            "type": "TEXT",
+            "data": ""
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://172.17.0.2:4040/jobs/job?id\u003d24"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1631965289328_-578938721",
+      "id": "20210918-114129_963586825",
+      "dateCreated": "2021-09-18 11:41:29.329",
+      "dateStarted": "2021-09-18 11:43:49.239",
+      "dateFinished": "2021-09-18 11:43:49.391",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n#### 2. 최종테이블 저장 : 필요한컬럼- 법정동명(local), 학원명(academy_name),과목명(subject)\n\n",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 11:46:26.938",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true,
+          "completionKey": "TAB",
+          "completionSupport": false
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch4\u003e2. 최종테이블 저장 : 필요한컬럼- 법정동명(local), 학원명(academy_name),과목명(subject)\u003c/h4\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1631965569137_-244077955",
+      "id": "20210918-114609_868976804",
+      "dateCreated": "2021-09-18 11:46:09.137",
+      "dateStarted": "2021-09-18 11:46:26.940",
+      "dateFinished": "2021-09-18 11:46:26.980",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\nfrom pyspark.sql.functions import concat, col, lit\ndf_fin \u003d all_df.select(col(\u0027local\u0027).alias(\u0027법정동명\u0027),col(\u0027academy_name\u0027).alias(\u0027학원명\u0027),col(\u0027subject\u0027).alias(\u0027과목명\u0027))\ndf_fin.show()",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 11:48:24.077",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+------+----------+---+\n|  법정동명|       학원명|과목명|\n+------+----------+---+\n|서울 성동구|정상어학원 성동분원| 영어|\n|경기 의정부|      삼광학원| 영어|\n|서울 강남구|   하이퍼리뷰학원| 국어|\n|경기 고양시|  마테마타수학학원| 수학|\n|경기 광명시|    유라영어학원| 영어|\n|인천 부평구|  매쓰블릭수학학원| 수학|\n|경기 성남시|   백선화수학학원| 수학|\n|서울 송파구|   오세용 어학원| 영어|\n|경기 남양주|    강한수학학원| 수학|\n|서울 강남구|    나무아카데미| 국어|\n|서울 강동구|수학의힘 강동 본원| 영어|\n|경기 김포시| 뉴욕센트럴영어학원| 영어|\n|서울 영등포|    김정은 수학| 수학|\n|서울 강북구|     엠케이수학| 영어|\n|서울 구로구|      필탑학원| 수학|\n|서울 광진구|  일공구오국어학원| 국어|\n|경기 화성시|  황은영국어 2관| 국어|\n|경기 파주시|  온새미로입시학원| 국어|\n|인천 계양구|     아이필학원| 국어|\n|경기 성남시|    대두수학학원| 국어|\n+------+----------+---+\nonly showing top 20 rows\n\n"
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://172.17.0.2:4040/jobs/job?id\u003d25"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1631965343960_-1156613069",
+      "id": "20210918-114223_809580107",
+      "dateCreated": "2021-09-18 11:42:23.960",
+      "dateStarted": "2021-09-18 11:48:24.121",
+      "dateFinished": "2021-09-18 11:48:24.456",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ndf_fin.createOrReplaceTempView(\"tutor_local_final\")",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 11:49:26.176",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1631965695220_-220069497",
+      "id": "20210918-114815_1013335074",
+      "dateCreated": "2021-09-18 11:48:15.220",
+      "dateStarted": "2021-09-18 11:49:26.214",
+      "dateFinished": "2021-09-18 11:49:26.295",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect * from tutor_local_final",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 11:49:58.889",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "법정동명": "string",
+                      "학원명": "string",
+                      "과목명": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "법정동명\t학원명\t과목명\n서울 성동구\t정상어학원 성동분원\t영어\n경기 의정부\t삼광학원\t영어\n서울 강남구\t하이퍼리뷰학원\t국어\n경기 고양시\t마테마타수학학원\t수학\n경기 광명시\t유라영어학원\t영어\n인천 부평구\t매쓰블릭수학학원\t수학\n경기 성남시\t백선화수학학원\t수학\n서울 송파구\t오세용 어학원\t영어\n경기 남양주\t강한수학학원\t수학\n서울 강남구\t나무아카데미\t국어\n서울 강동구\t수학의힘 강동 본원\t영어\n경기 김포시\t뉴욕센트럴영어학원\t영어\n서울 영등포\t김정은 수학\t수학\n서울 강북구\t엠케이수학\t영어\n서울 구로구\t필탑학원\t수학\n서울 광진구\t일공구오국어학원\t국어\n경기 화성시\t황은영국어 2관\t국어\n경기 파주시\t온새미로입시학원\t국어\n인천 계양구\t아이필학원\t국어\n경기 성남시\t대두수학학원\t국어\n인천 연수구\t김샘수학\u0026유베스타어학원\t영어\n인천 남동구\t신수학영어학원\t영어\n인천 연수구\t고대수학원\t수학\n서울 송파구\t와이즈만영재교육 잠실센...\t수학\n서울 중랑구\tJulie 영어수학\t영어\n인천 서구\t주식회사 교연학원/LFA키...\t영어\n서울 광진구\t탑 고려보습학원\t수학\n서울 성북구\t강북 세일학원\t수학\n경기 부천시\t채움학원\t영어\n경기 시흥시\t대학입시외국어학원\t영어\n서울 노원구\tsky미래연수학학원\t수학\n서울 양천구\t대원학원\t수학\n서울 양천구\t목동ILS\t영어\n서울 양천구\t엘제이엠수학원\t수학\n인천 연수구\t미래듀학원\t영어\n인천 서구\t수학보호구역\t수학\n서울 강남구\t(주)다원교육\t수학\n경기 부천시\t선진수학보습학원\t수학\n경기 수원시\t탑지성학원\t영어\n서울 관악구\t관악뉴스터디\t수학\n서울 구로구\t본수학전문학원\t수학\n인천 남동구\t에스엠에듀\t수학\n충남 천안시\t탑씨크리트 교육\t국어\n서울 강남구\tCSJ영어학원\t영어\n서울 강남구\tEiE비상매스캔학원\t영어\n인천 서구\t솔로몬 영재학원\t영어\n서울 강남구\t텔레오입시전문학원\t사회계열\n경기 수원시\t정진학원\t수학\n서울 서초구\t(주)매쓰홀릭\t수학\n서울 은평구\t지앤비국제사관어학원\t영어\n인천 부평구\t수타민 수학학원\t수학\n인천 서구\t청라 드림교육센터\t영어\n서울 동작구\t이엠학원\t수학\n경기 김포시\t더완벽한수학학원\t수학\n경기 김포시\t한강와이즈만영재교육학원\t수학\n경기 남양주\tILKI어학원\t영어\n경기 용인시\tYBM 교육 어학원\t영어\n인천 서구\t유베스트학원\t국어\n서울 동대문\t동화세상 에듀코\t영어\n서울 서초구\t그루영어\t영어\n경기 구리시\tYBM교육\t영어\n서울 동대문\t에듀코\t국어\n경기 김포시\t센트럴1리딩클럽풍무학원\t영어\n경기 고양시\t생각하는 황소 화정\t수학\n경기 부천시\t청어람국어 입시학원\t국어\n서울 양천구\t고대수학학원\t수학\n경기 남양주\t오롬수학학원\t수학\n경기 화성시\t맥영수전문학원\t수학\n경기 화성시\t한수위국어학원\t국어\n경기 용인시\t주식회사 포스에듀\t영어\n서울 노원구\t전문가집단\t수학\n경기 화성시\t스터디온학원\t수학\n경기 화성시\t이산국어 논술 학원\t국어\n경기 오산시\t종로엠스쿨학원\t수학\n서울 송파구\tTNC수학원\t수학\n경기 양주시\t미래인재학원\t영어\n서울 마포구\t구조분석영어학원\t영어\n경기 고양시\t김영화영어학원\t영어\n경기 광명시\t유투엠수학학원\t수학\n경기 여주시\t윤선생igse여주가남학원\t영어\n서울 노원구\t김지민영어학원\t영어\n인천 서구\t탑클래스종합학원\t수학\n경기 안산시\t엠앤이학원\t수학\n서울 서초구\t제이포커스잉글리쉬\t영어\n경기 고양시\t프렌잉글리시 \u0026차이랑 일...\t영어회화/텝스/토플\n부산 강서구\t스카이(SKY)영수학원\t영어\n서울 관악구\t진명학원\t수학\n서울 동대문\t동화세상에듀코\t수학\n대구 남구\t(주)동화세상에듀코\t방문학습지\n서울 송파구\t제스(J.E.S)영어학원\t영어\n경기 화성시\t파머스영어능동캠퍼스학원\t영어\n충남 천안시\tTE MATH\t국어\n경기 광명시\t이원수학학원\t수학\n서울 도봉구\t도봉 강태우어학원\t국어\n서울 동작구\t윤선생 IGSE\t영어\n경기 고양시\t겨자씨의꿈\t국어\n서울 마포구\t매스토크\t수학\n서울 노원구\t자유자재학원 알파관\t수학\n서울 성북구\t페르마수학학원 성북캠퍼...\t수학\n서울 강서구\t세계로학원\t수학\n서울 강남구\t대치스터디\t수학\n서울 마포구\t더매쓰수학전문\t수학\n서울 서초구\t개념폴리아학원 서초관\t수학\n경기 성남시\t미래엔 사고력수학\t수학\n서울 성북구\t공주쌤수학학원\t수학\n경기 용인시\t엘리하이어학원\t영어\n경기 안양시\t이엠학원\t영어\n경기 안양시\t수학의시선\t수학\n서울 노원구\tYBM잉글루\t수학\n서울 강서구\t강서펜타곤학원\t수학\n인천 서구\t올인학원\t영어\n경기 고양시\t시매쓰 오산센터\t수학\n서울 송파구\t핵수학보습학원\t수학\n서울 강남구\t파워영재학원\t수학\n경기 용인시\t프로매쓰(꽃피는수학)\t수학\n경기 평택시\t연세학원\t수학\n서울 노원구\t비트영어학원\t영어\n경기 용인시\tTS학원\t영어\n서울 금천구\t수도보습학원\t영어\n경기 성남시\tSummit 영어\t영어\n경기 성남시\t제이엠아이수학학원\t수학\n서울 강남구\t고석용현탑학원\t수학\n서울 영등포\t지피지기학원\t수학\n인천 남동구\t퀸즈어학원\t영어\n경기 용인시\t게이트 영재센터\t수학\n서울 금천구\t하이스트 금천\t국어\n서울 강남구\tSM에듀\t수학\n경기 고양시\t이지베스트학원\t수학\n경기 수원시\t종로학원 하늘교육\t수학\n서울 송파구\t국풍2000 석촌관\t국어\n서울 서대문\t에스클래스영어전문학원\t영어\n서울 강남구\t에스학원\t수학\n서울 성북구\t성북종로학원\t국어\n서울 송파구\t정현석 수학명가 학원\t수학\n경기 의정부\t금오민족사관학원\t국어\n경기 고양시\t보스턴영어수학학원\t수학\n서울 강남구\t가온국악보습학원\t국어\n인천 서구\tPTM영수전문학원\t수학\n서울 강남구\t메사인재관학원\t수학\n인천 서구\t현수학전문학원\t수학\n경기 군포시\t메타어학원\t영어\n서울 마포구\t밀당영어\t수학\n경남 양산시\t윤선생IGSE아카데미양산가...\t수학\n서울 동대문\t가온국어논술학원\t국어\n서울 광진구\t생각하는황소광진학원\t수학\n인천 계양구\t리딩타운어학원\u0026셀파수학\t영어\n경기 부천시\t비욘드잉글리쉬 송도랜드...\t영어\n경기 시흥시\t대치프라임학원\t영어\n경기 성남시\t글오우 융합독서 프로젝트...\t국어\n서울 광진구\t토크스테이션\t상담직\n경기 안산시\t시대인재교육\t영어\n경기 성남시\t대치영어연구소\t영어\n인천 부평구\t거산TOP수학학원\t수학\n서울 강동구\t대한논리속독고덕학원\t국어\n경기 오산시\t리한에듀영어학원\t영어\n인천 미추홀\t저스트원학원\t수학\n인천 남동구\t프리메카학원\t수학\n경기 수원시\t오르다샘앤클래스광교학원\t수학\n서울 동작구\t대방웰이스턴영어\t영어\n경기 성남시\t에스알어학원\t영어\n경기 파주시\t우리에듀\t영어\n경기 안양시\t이신학원\t영어\n서울 성동구\t성동뉴타운 소마학원\t수학\n인천 부평구\teasy윤 수학영어\t영어\n서울 서초구\tReal 수학학원\t수학\n인천 연수구\tAlfa of Math\t수학\n인천 서구\t투스카이수학과학학원\t수학\n경기 평택시\t비오비에듀학원\t수학\n경기 안산시\t킹스키즈어학원\t영어\n서울 성북구\t정성학원\t영어\n경기 안양시\t씨아이에듀입시학원\t국어\n경기 광명시\t◈SD명문학원◈\t영어\n경기 파주시\t운정 연솔학원\t수학\n인천 연수구\t줄리킴영어학원\t영어\n서울 강남구\t영매쓰수학학원\t수학\n경기 수원시\t삼성영어화서화양학원\t영어\n경기 하남시\tStudy Factory\t영어\n경기 고양시\t김정연에듀\t국어\n서울 강남구\t지엘에스에듀\t영어\n경기 용인시\t동백정철어학원\t영어\n경기 용인시\t힘수학 동천지점\t수학\n경기 용인시\t설연고학원\t수학\n서울 양천구\t샤인학원\t국어\n서울 광진구\t중앙학원\t영어\n경기 부천시\t은 수학영어학원\t수학\n경기 성남시\t한수위학원\t수학\n부산 해운대\t뿌리깊은국어학원\t국어\n서울 서초구\t메이저수학학원\t수학\n경기 안양시\t지엔탑학원\t수학\n인천 서구\t비원에듀\t영어\n경기 안양시\thalo 헤일로수학과학학원\t수학\n서울 강서구\t포레스픽 영어학원\t영어\n인천 남동구\t육일수학학원\t수학\n인천 연수구\t바른영어학원\t영어\n경기 의정부\t팬더쌤영수전문학원\t수학\n세종 \t상상이상학원\t국어\n경기 수원시\t이강학원\t수학\n서울 강남구\t뮤엠영어세곡학원\t영어\n경기 고양시\tthe 막강학원\t영어\n경기 고양시\t날개달기 국어\t국어\n서울 성북구\t대치에스학원\t수학\n서울 강동구\t강동하이레벨수학학원\t수학\n서울 송파구\t동화세상에듀코 송파지사\t국어\n서울 강남구\t코어에듀\t수학\n서울 서초구\t(주) 서초아발론\t영어\n인천 남동구\t인천원탑영수전문학원\t영어\n서울 강남구\tHabit 9 어학원\t영어\n서울 양천구\tCDC(Catholic Dreams \u0026 Ch...\t수학\n경기 성남시\t서강영어학원\t영어\n서울 동작구\tSAGE 영어학원\t영어\n경기 성남시\t스카이 학원\t영어\n경기 김포시\t더쎈학원\t수학\n제주 제주시\t제이원에듀\t수학\n서울 강남구\t미투스카이 수학전문학원\t수학\n경기 김포시\t사이매쓰학원\t수학\n서울 강남구\t이룸영어\t영어\n서울 중랑구\t일류학원\t영어\n서울 특별시\t더쎈영수학원\t영어\n경기 고양시\t연세위너스학원\t수학\n서울 성북구\t이상숙어학원\t영어\n인천 연수구\t이도수학\t수학\n서울 서대문\t루체테어학원 가재울캠퍼...\t영어\n서울 동작구\t생각하는황소 동작학원\t수학\n경기 용인시\tLUCY어학원\t영어\n경기 의정부\t플랜에이수학학원\t수학\n경기 용인시\t빌더스 인텐시브\t영어\n경기 양주시\tG1230(양주점)\t수학\n인천 미추홀\t에듀피아\t영어\n경기 화성시\t엠베스트SE 이산캠퍼스\t영어\n충남 아산시\t아산올림피아드\t수학\n서울 성동구\t쌤과통하는수학\t수학\n서울 영등포\t멘토아카데미\t수학\n서울 은평구\t아이엠지잉글리시\t수학\n서울 관악구\t민병철주니어학원\t영어\n서울 동대문\tThe큰수학학원\t수학\n인천 서구\t파스칼학원\t국어\n대전 서구\t유클리드 수학전문학원\t수학\n서울 관악구\t이지엠학원\t수학\n서울 은평구\t해솔학원\t영어\n인천 서구\t하이클래스 입시학원\t수학\n서울 은평구\t알파영어\t영어\n인천 남동구\tELL학원\t영어\n경기 성남시\t지티지 수학학원\t수학\n경기 부천시\tmath153수학학원\t수학\n서울 강동구\t메리트수학학원\t수학\n서울 구로구\t쑥쑥리더스영어학원\t영어\n경기 용인시\t닥터수밀크잉글리쉬\t영어\n경기 남양주\t도농 시매쓰\t수학\n서울 양천구\t목동한맥프라임학원\t수학\n경기 파주시\t앤써학원\t수학\n서울 서초구\t(주)잇올\t국어\n경기 김포시\t힘수학\t수학\n서울 도봉구\t삼성영어창일교실학원\t영어\n경기 부천시\t서울탑수학학원\t수학\n인천 남동구\t유신해법학원\t영어\n경기 성남시\t플랜에이수학\t수학\n경기 고양시\t명문학원\t영어\n서울 구로구\t연세이룸학원\t영어\n경기 성남시\t마이러닝랩 입시학원\t국어\n경기 시흥시\tM2수학학원\t수학\n경기 광주시\t아발론랭콘광주태전어학원\t영어\n서울 동작구\t여의도JS학원\t수학\n서울 강남구\t다른학원\t국어\n서울 송파구\t진아트잉글리쉬\t영어\n서울 은평구\t연학원\t국어\n경기 김포시\t웰 영수 전문학원\t영어\n경기 구리시\t현앤장수학학원\t수학\n인천 연수구\t스피드영어학원\t영어\n경기 화성시\t개런티영어학원\t영어\n서울 서초구\t위에듀어학원\t영어\n서울 양천구\t뮤엠영어시드니캠퍼스\t수학\n인천 연수구\tSAC잉글리시아이영어학원\t영어\n경기 김포시\t유아감성놀이 리틀포레스...\t영어\n서울 강동구\tFTK잉글리쉬\t영어\n서울 용산구\t(주)종로학원하늘교육\t수학\n경기 남양주\t리드N영어수학학원\t수학\n경기 광명시\t지니리영어학원\t영어\n인천 연수구\tFLA영어입시전문학원\t영어\n경기 파주시\t다니엘 학원\t수학\n경기 성남시\t신혜영\t수학\n경기 파주시\t이앤서학원\t영어\n서울 강남구\t백년나무교육\t수학\n서울 구로구\t(주)건강한학습연구소\t국어\n서울 서초구\t수학대장 방배캠퍼스\t수학\n경기 파주시\t김동수학원\t수학\n서울 양천구\t11월의혁명 영어전문학원\t영어\n경기 하남시\tU2M감일캠퍼스\t수학\n서울 동작구\t(주) 아이진로\t수학\n경기 수원시\t쌤종합학원\t영어\n충남 천안시\t(주)대치입시앤컨설팅학원\t수학\n서울 노원구\t매씽에듀\t수학\n서울 양천구\t류다현 수학전문학원\t수학\n인천 서구\teie고려대국제어학원 원당\t영어\n경기 남양주\tGnB어학원 평내캠퍼스\t수학\n인천 서구\t무결학원\t수학\n서울 동대문\t주노영어\t영어\n충남 논산시\t논산최강\t영어\n경기 안산시\t올리고 영수학원\t영어\n서울 서초구\t수리원 수학학원\t수학\n서울 도봉구\tlns수학학원\t수학\n충남 아산시\t미스터 밥 수학 학원\t수학\n인천 서구\tIELC어학원\t영어\n인천 남동구\t수학사이다학원\t수학\n서울 서초구\tjk영재학원\t수학\n서울 강남구\t청명학원\t과학계열\n경기 성남시\t미래를 여는 창\t수학\n경기 안산시\t대월아카데미\t영어\n제주 서귀포\tEduStone\t영어\n서울 강남구\t시그마베스트학원\t수학\n경기 부천시\t현대해법영어보습학원\t영어\n인천 남동구\tSNU 영수과 전문학원\t수학\n경기 수원시\t대치학원\t국어\n인천 서구\t에이플러스\t수학\n서울 영등포\t국제어학원당산캠퍼스\t영어\n대구 수성구\t권진희국어학원\t국어\n서울 강동구\t삼성영어셀레나학원\t영어\n경기 하남시\t미사중앙삼성영어\u0026탑매쓰...\t영어\n서울 양천구\t파이수학\t수학\n경기 고양시\t재니 학원\t영어\n서울 관악구\t시대인재디학원\t국어\n서울 마포구\t와이키즈 마포센터\t수학\n서울 서대문\tYBM ECC 마포서대문\t영어\n인천 부평구\t박쌤학원\t영어\n서울 강남구\t피앤케이학원\t수학\n부산 부산진\t교원더퍼스트플래너스수학...\t수학\n서울 노원구\t매쓰플랜수학전문학원\t수학\n서울 서초구\t중앙학원\t수학\n서울 강서구\t주식회사 와이디아카데미\t영어\n서울 도봉구\t모스트학원\t수학\n경기 광주시\t인사이트학원\t수학\n서울 강남구\t(주)아인슈타인교육\t수학\n경기 용인시\t수학사랑학원\t수학\n서울 금천구\tJYP영어학원\t영어\n대전 중구\t행복한수학영어학원\t수학\n서울 성북구\t강남펜타스학원\t국어\n서울 강남구\t수학몬스터대치학원\t수학\n경기 파주시\t프랩학원\t수학\n경기 고양시\tEIE 고려대국제어학원\t영어\n경기 부천시\t멘토초중보습학원\t영어\n서울 성동구\t행당시매쓰\t수학\n서울 은평구\t웨스턴영어학원\t영어\n경기 부천시\t홍수학영어입시학원\t수학\n서울 영등포\t더존학원\t영어\n경기 용인시\tELI어학원\t영어\n서울 관악구\t와이즈만 관악센터\t수학\n경기 의정부\t맨투맨학원호원센터\t수학\n서울 동작구\t강한학원\t수학\n경기 화성시\t몬스터교육\t수학\n경기 남양주\t문희영어학원\t영어\n경기 수원시\t일로드수학학원\t수학\n서울 광진구\t뉴스트학원\t영어\n경기 용인시\t드림수학전문학원\t수학\n경기 화성시\tBLAST어학원\t영어\n경기 화성시\tLETS영어수학전문학원\t수학\n서울 양천구\t청담클루빌영어학원\t영어\n서울 노원구\t최고수보습학원\t수학\n대전 서구\t명인학원\t수학\n경기 수원시\t마이튜터\t수학\n경기 수원시\t유어멘토학원\t수학\n경기 의정부\t민락맨투맨학원\t국어\n서울 강남구\t강남SK학원\t국어\n서울 구로구\t대치학원\t영어\n서울 강동구\t캐슬The오름수학\t수학\n경기 광주시\t미래학원\t영어\n서울 강서구\t공신수학학원\t영어\n서울 강동구\t더블유 수학학원\t수학\n서울 은평구\t이지스터디학원\t수학\n경기 안산시\t티앤비영수전문학원\t수학\n서울 노원구\t[중계]청담어학원\t영어\n경기 화성시\t매쉬업 에듀케이션\t수학\n경기 김포시\t일타수학학원\t수학\n경기 파주시\t영어종결센터\t영어\n서울 노원구\t잉글리시에그노원\t영어\n강원 춘천시\t동화세상에듀코\t국어\n서울 강남구\t수림수학학원\t수학\n경기 남양주\t고려EIE 마석 송라 캠퍼스\t영어\n서울 동대문\tVISION 컨설팅\t영어\n경기 성남시\tAPSUN앞선영어\t영어\n경기 화성시\t이경직 입시국어 클리닉\t국어\n인천 남동구\t정철어학원Jr 서창캠퍼스\t영어\n경기 남양주\t오롬어학원\t영어\n경기 고양시\t강의하는 아이들 백마캠퍼...\t수학\n서울 마포구\t잉글리시버드\t영어\n서울 강남구\t스터디백도씨학원\t수학\n서울 서대문\t서대문페르마\t수학\n경기 군포시\t정상수학\t수학\n경기 수원시\t더나은학원\t수학\n서울 강남구\t명석수학전문학원\t수학\n경기 화성시\t쿤 어학원, 쿤 수학학원\t수학\n서울 강동구\t아이엘(IL)영어n수학보습...\t영어\n충남 서산시\t정철영어주니어서산캠퍼스\t수학\n경기 남양주\tBT수학학원\t수학\n경기 고양시\t더 퍼스트 학원\t수학\n경기 광명시\t생각하는수학플러스어학원\t수학\n대구 동구\t정철영어주니어동호어학원\t영어\n경기 이천시\t탑스카이학원\t영어\n서울 동대문\t아발론동대문점\t영어\n부산 북구\t인피니트영수전문학원\t수학\n경기 시흥시\t정왕냉정센수학윤선생시흥...\t수학\n경기 용인시\t수지에이프릴어학원\t영어\n경기 화성시\t향남유투엠X로제타스톤학...\t수학\n경기 성남시\t해법에듀학원\t수학\n대구 달성군\t구정남수학전문학원\t수학\n경기 고양시\t생각수학\t수학\n경기 수원시\t수학공감학원\t수학\n대구 수성구\t글로벌리더스어학원\t영어\n경기 안양시\t행복한청명영어학원\t영어\n경기 용인시\t공부자신감\t수학\n서울 강북구\t세종학원\t영어\n경기 화성시\t더오름학원\t수학\n서울 동대문\t삼성영어해법수학이문학원\t수학\n인천 남동구\t정철어학원 Jr.\t영어\n경기 용인시\tJY 잉글리쉬아카데미\t영어\n서울 마포구\t(주)동화세상에듀코\t국어\n서울 관악구\t다마스쿠스 학원\t영어\n경기 김포시\t현준쌤수학학원\t수학\n경기 부천시\t역곡페르마보습학원\t수학\n충북 청주시\t이엠스쿨학원\t수학\n경기 안산시\t맨투맨영수학원\t수학\n경기 하남시\t시대에듀\t수학\n경기 고양시\t지앤조영수학원\t영어\n경기 성남시\t이지피지영어\t영어\n서울 강동구\t다다아카데미\t수학\n경기 화성시\t엠리더스향남학원\t수학\n경기 광주시\t바른학원\t영어\n경기 안산시\t잉글리쉬무무고잔제5학습...\t영어\n경기 수원시\t아이비츠학원\t영어\n경기 부천시\t신사고영어보습학원\t영어\n서울 도봉구\t필과수수학과학학원\t영어\n경기 화성시\tThe System 영수전문\t수학\n경기 평택시\t배진영수전문학원\t영어\n서울 송파구\t천종현사고력수학\t수학\n경기 용인시\t제카영어학원\t영어\n경기 고양시\t광수학\t수학\n경기 평택시\t영어종결센터 소사벌학원\t영어\n경기 광명시\t광명 소마사고력 수학학원\t수학\n경기 하남시\t삼성영어 쎈수학 러닝센터...\t영어\n경기 고양시\t후곡에듀플렉스학원\t자기주도/학습코칭\n서울 서초구\t티엘수능입시학원\t수학\n경기 김포시\tEIE 고려대 국제어학원 김...\t영어\n인천 부평구\t하이영수학원\t영어\n경기 성남시\tEKEDU(주)\t영어\n서울 광진구\t나랏말씀국어학원\t국어\n경기 광명시\t영어종결센터 하안학원\t영어\n경기 김포시\t이스턴어학원\t영어\n경기 남양주\t서울에듀학원\t수학\n충북 청주시\t소리영어수리수학\t영어\n경기 의정부\t라온학원\t수학\n서울 광진구\t더채움수학전문학원\t수학\n인천 연수구\t블러썸영어학원\t영어\n경기 하남시\t지노수학과학 학원\t수학\n경기 성남시\t대치동토모수학\t수학\n경기 화성시\t에벤학원\t수학\n인천 계양구\tGnB영어전문학원(부평캠퍼...\t영어\n경기 수원시\t양나무수학학원\t수학\n경기 평택시\t신승환영어학원\t영어\n제주 서귀포\t서울탑텐 학습센터\t수학\n경기 부천시\t참된인재학원\t영어\n인천 계양구\t이룸 국영수 학원\t국어\n서울 강서구\t대한논리속독염창학원\t독서/논술\n경기 의정부\t청운학원\t영어\n인천 서구\t더채움해법영어수학학원\t수학\n서울 마포구\t이현주어학원\t영어\n경기 구리시\t갈매지앤비영어학원\t영어\n경기 시흥시\t차수학앤국풍2000학원\t수학\n강원 춘천시\t춘천종로엠스쿨\t수학\n경기 군포시\t뱅크스리어학원\t영어\n경기 수원시\t더웰학원\t수학\n서울 마포구\t하이츠수학\t영어\n인천 연수구\tTMS이룸수학학원\t수학\n서울 종로구\t아이비프렙\u0026아르케 아카데...\t영어\n대구 북구\t루시앤입시학원\t영어\n서울 구로구\t아이디어스 아카데미\t수학\n서울 마포구\t한솔플라톤(한솔교육)\t독서/논술\n경기 화성시\t자호수학\t수학\n경기 의정부\t프린스턴수학전문\t수학\n부산 사하구\t제니스학원\t수학\n인천 계양구\t삼성영어\t수학\n경기 성남시\t한국영재교육센터수학학원\t수학\n경기 김포시\t리즈멘토 스터디\t영어\n경기 광주시\t일퍼센트수학원\t수학\n경기 안양시\t평촌설연고학원\t수학\n인천 서구\t대성학원\t수학\n경기 용인시\t아이빅학원\t수학\n경기 남양주\t평내카이로스 수학학원\t수학\n서울 양천구\t수학의숲\t수학\n경기 성남시\t해법독서논술 김주희국어\t국어\n경기 안성시\t수만휘기숙학원본원\t수학\n경기 김포시\t이스턴어학원\t영어\n서울 강남구\t(주)막강수학\t수학\n서울 마포구\t삼성영어 서울서북부지사\t수학\n경기 의정부\t비투게더\t영어\n경기 시흥시\t성공의신화학원\t국어\n경기 남양주\t한정원수학영어학원\t수학\n경기 화성시\t혜윰플러스학원\t영어\n경기 용인시\t하이블영수학원\t수학\n경기 용인시\t잉글리시아이 학원\t영어\n서울 서초구\t메가스터디교육\t국어\n경남 진주시\t뉴베리어학원\t영어\n제주 서귀포\t카이스트수학과학 학원\t수학\n경기 광주시\t뮤엠영어곤지암학원\t영어\n서울 구로구\t아발론신도림어학원\t국어\n서울 광진구\t김요안수학학원\t수학\n서울 서초구\t헤일리학원\t영어\n인천 부평구\t동화세상 에듀코\t자기주도/학습코칭\n인천 남동구\t한솔영어수학학원\t수학\n서울 강남구\t에모리 영어\t영어\n경기 부천시\t맥스탑플러스입시학원\t수학\n경기 여주시\t한수연수학전문학원\t수학\n경기 시흥시\t함쌤영어\t영어\n경기 성남시\t위례 에듀플렉스\t자기주도/학습코칭\n경기 화성시\t더하이츠동탄학원\t영어\n서울 동작구\t옳은(ORUN)영어\t영어\n경기 양주시\t옥정대성N학원\t영어\n서울 노원구\t와이즈만 영재교육 노원센...\t수학\n서울 서초구\t메가스터디교육\t국어\n경기 화성시\t신의수학\t수학\n서울 송파구\t윤선생영어숲 가락보습학...\t영어\n서울 양천구\t오르다샘앤플레이스\t수학\n경기 시흥시\t위너스올인학원\t영어\n경기 의정부\t연세SM학원\t영어\n경기 화성시\t청람 학원\t영어\n서울 영등포\t보라매유베스타어학원\t영어\n경기 화성시\t생각하는황소\t수학\n경기 안양시\t카르마학원\t수학\n서울 관악구\t김홍학원\t영어\n광주 북구\t이티영어전문학원\t영어\n서울 은평구\t윤 수학학원\t수학\n경기 수원시\t정선생영어전문학원\t영어\n경기 시흥시\t유클리드 수학학원\t수학\n서울 강남구\t바른적성\t수학\n경기 수원시\t마에스트로 수학전문학원\t수학\n서울 마포구\t정오수학학원\t수학\n경기 안산시\t한뜻학원\t수학\n경기 용인시\t루카스\t독서/논술\n서울 강남구\t압구정한길국어학원\t국어\n경기 남양주\t아나톨레수학영어학원\t영어\n경기 부천시\t탑플러스보습\t수학\n경기 군포시\tHerald Prime\t영어\n경기 용인시\t문법의신\t영어\n부산 기장군\t상상학원\t수학\n경기 시흥시\t정철어학원\t영어\n경기 김포시\t라플라스수학학원\t수학\n서울 강남구\t세곡소마수학학원\t수학\n서울 강북구\t(주)이씨엔교육\t국어\n부산 영도구\tcore english\t영어\n경기 파주시\t애니스터디\t국어\n서울 서초구\tBMG\t국어\n경기 안양시\t엘에스이학원\t수학\n인천 남동구\t하늘교육 남동에듀올지점\t수학\n경기 수원시\t에버윈영어학원\t영어\n서울 서초구\t서율학원\t국어\n서울 동대문\t잉글리쉬무무학원\t수학\n경기 군포시\t국영수디스터디\t국어\n서울 송파구\t프라우드 리더스 영어학원\t영어\n경기 남양주\t연세더탑학원\t수학\n서울 영등포\t아이맥스학원\t영어\n경기 시흥시\t매쓰코어수학전문학원\t수학\n경기 수원시\t영통청담어학원 (주)나은\t영어\n경기 성남시\tVEL영어학원\t영어\n경기 부천시\t쎈수학 초중고전문학원\t수학\n경기 하남시\t비상잉글리시아이 북위례...\t영어\n서울 성북구\t(주) 뉴런 에듀\t영어\n경기 수원시\t킴스에듀케어학원\t수학\n서울 강남구\t팀수학\t수학\n서울 양천구\t국어 하기 좋은 날\t국어\n서울 강남구\t대성다수인학원\t수학\n충남 아산시\t하이준\t수학\n부산 남구\t플라밍고 잉글리쉬\t수학\n경기 안양시\t수학의 봄날 수학학원\t수학\n경기 김포시\t김포 채움 학원\t영어\n경기 성남시\t이루다수학과학학원\t수학\n서울 송파구\t정선수학전문학원\t수학\n서울 동대문\t동화세상에듀코\t수학\n서울 송파구\t제스(J.E.S)영어학원\t영어\n인천 서구\t유베스트학원\t국어\n서울 양천구\t김미현국어학원\t국어\n서울 강동구\t수학의힘 강동 본원\t영어\n서울 강남구\t나무아카데미\t국어\n서울 강남구\t세정스카이학원\t수학\n부산 강서구\t스카이(SKY)영수학원\t영어\n서울 동대문\t에듀코\t국어\n경기 용인시\t프로매쓰(꽃피는수학)\t수학\n경기 성남시\t셈율수학학원\t수학\n인천 부평구\t수타민 수학학원\t수학\n서울 강남구\t텔레오입시전문학원\t사회계열\n서울 동작구\t드림하이영어학원\t국어\n경기 화성시\t막강학원.막강수학\t수학\n서울 서초구\t개념폴리아학원 서초관\t수학\n서울 광진구\t광진ELC어학원\t영어\n경기 부천시\t채움학원\t영어\n서울 강남구\t고앤정수학학원\t수학\n경기 용인시\t주식회사 포스에듀\t영어\n서울 강남구\t영매쓰수학학원\t수학\n경기 부천시\t임팩트7영어학원\t국어\n서울 강남구\t프라임에듀학원\t수학\n경기 김포시\t한강와이즈만영재교육학원\t수학\n서울 강남구\t피앤케이학원\t수학\n인천 서구\tGnB\t영어\n서울 광진구\t탑 고려보습학원\t수학\n서울 관악구\t다마스쿠스 학원\t영어\n서울 강남구\t미래탐구학원\t과학계열\n경기 하남시\t대한논리속독학원\t국어\n인천 서구\t비원에듀\t영어\n경기 남양주\t진건양쌤학원\t영어\n서울 양천구\t하이스트학원\t수학\n인천 서구\t주식회사 교연학원/LFA키...\t영어\n서울 영등포\t일신학원\t영어\n서울 동대문\t(주)EDUCO\t국어\n서울 마포구\t한맥국어전문학원\t국어\n인천 서구\t청라 드림교육센터\t영어\n인천 남동구\t신수학영어학원\t영어\n서울 구로구\t필탑학원\t수학\n서울 송파구\t오세용 어학원\t영어\n경기 수원시\t정진학원\t수학\n경기 성남시\tSNU수학학원\t수학\n인천 동구\t오르다영수전문학원\t영어\n경기 하남시\t미사중앙삼성영어\u0026탑매쓰...\t영어\n경기 부천시\t서울탑수학학원\t수학\n경기 안산시\t시대인재교육\t영어\n경기 시흥시\t대학입시외국어학원\t영어\n제주 제주시\t뿌리와샘\t국어\n경기 안양시\t지엔탑학원\t수학\n서울 강남구\t에스학원\t수학\n경기 고양시\t파란영어학원\t영어\n서울 양천구\t목동엠폴리\t영어\n경기 파주시\t대치동수스터디학원\t영어\n경기 남양주\t다산 YBM잉글루\t영어\n경기 남양주\t제이스카이학원\t수학\n서울 강북구\t세진에듀학원\t영어\n경기 수원시\t린쌤영어학원\t영어\n충남 아산시\t아산올림피아드\t수학\n서울 영등포\t지피지기학원\t수학\n경기 수원시\t종로학원 하늘교육\t수학\n경기 화성시\t이라랭귀지학원\t영어\n경기 구리시\tYBM교육\t영어\n경기 구리시\t해나샘영어\t영어\n경기 화성시\t맥영수전문학원\t수학\n경기 화성시\t이산국어 논술 학원\t국어\n경기 김포시\t창의력발전소\u0026주인공\t수학\n경기 오산시\t종로엠스쿨학원\t수학\n서울 송파구\tTNC수학원\t수학\n경기 화성시\t한수위국어학원\t국어\n서울 강남구\t수미상관한국어학원\t국어\n경기 남양주\t오롬수학학원\t수학\n서울 송파구\t연세수학원\t수학\n경기 성남시\t백선화수학학원\t수학\n서울 노원구\t전문가집단\t수학\n경기 화성시\t스터디온학원\t수학\n서울 양천구\t히파티아수학학원\t수학\n서울 강남구\t하이퍼리뷰학원\t국어\n서울 송파구\t다니엘수학보습학원\t수학\n인천 부평구\t매쓰블릭수학학원\t수학\n서울 서대문\t민정수학전문학원\t수학\n서울 강남구\t가온국악보습학원\t수학\n서울 노원구\t써큘러스리더 학습클리닉\t영어\n경기 성남시\t와이즈만영재교육성남센터\t수학\n경기 안양시\t이신학원\t영어\n서울 강동구\t코람데오 어학원\t영어\n서울 구로구\t연세이룸학원\t영어\n서울 마포구\t구조분석영어학원\t영어\n경기 화성시\t칼수학전문학원\t수학\n경기 안산시\t함께하는수학학원\t영어\n서울 송파구\t정현석 수학명가 학원\t수학\n대구 달서구\t월성YEP영어학원\t영어\n경기 남양주\t평내지1230학원\t영어\n경기 고양시\t깊은생각국어학원\t영어\n서울 노원구\t아이린영어학원\t영어\n경기 고양시\t광수학\t수학\n경기 용인시\t서원학원\t수학\n경기 수원시\t탑지성학원\t영어\n인천 남동구\t에스엠에듀\t수학\n경기 광명시\t◈SD명문학원◈\t영어\n경기 광명시\t세인학원\t수학\n부산 사하구\t사하STRT\t수학\n서울 강남구\tCSJ영어학원\t영어\n대구 북구\t더웨이즈수학앤영어학원\t수학\n서울 관악구\t이지엠학원\t수학\n서울 성북구\t이상숙어학원\t영어\n인천 남동구\t인천원탑영수전문학원\t영어\n서울 중랑구\tJulie 영어수학\t영어\n대구 남구\t(주)동화세상에듀코\t방문학습지\n서울 강남구\t강의하는 아이들\t관리직\n인천 남동구\t미들하이이스턴학원\t영어\n서울 동작구\t여의도JS학원\t영어\n경기 구리시\tTM 학원\t영어\n서울 서초구\t그루영어\t영어\n인천 연수구\t송도노른자프레임수학학원\t수학\n경기 광명시\t차오름국어 씨엔에이논술\t국어\n경기 부천시\t청어람국어 입시학원\t국어\n서울 성북구\t리앤슨잉글리쉬\t영어\n경기 구리시\t쎈수학러닝센터공터영어학...\t수학\n경기 고양시\t김영화영어학원\t영어\n경기 파주시\t우리에듀\t영어\n경기 용인시\t하이블영수학원\t수학\n경기 고양시\t일산식사 소마사고력 수학...\t수학\n서울 강남구\t에스엔티학원\t영어\n서울 양천구\t참수학학원\t수학\n서울 성북구\t성북종로학원\t국어\n경기 수원시\t삼성영어화서화양학원\t영어\n경기 수원시\t이강학원\t수학\n서울 양천구\t삽자루수학학원\t수학\n경기 김포시\t천지인입시학원\t수학\n경기 고양시\t이지베스트학원\t수학\n서울 노원구\t비트영어학원\t영어\n부산 해운대\t시매쓰영재교육학원\t수학\n서울 노원구\t다원수타수학학원\t수학\n서울 동작구\t생각하는황소 동작학원\t수학\n경기 오산시\t시매쓰 오산센터\t수학\n경기 평택시\t연세학원\t수학\n경기 용인시\tEnP학원\t수학\n경기 고양시\t뉴교연학원\t수학\n경기 남양주\t맨투맨학원\t영어\n경기 고양시\t서윤희 입시영어학원\t영어\n서울 강동구\t대한논리속독고덕학원\t국어\n경기 용인시\tLUCY어학원\t영어\n경기 성남시\t플로우교육\t수학\n경기 고양시\tMATH200\t수학\n서울 은평구\t홍익보습학원\t수학\n경기 의정부\tJTC어학원\t영어\n인천 연수구\t고대수학원\t수학\n경기 부천시\t비욘드잉글리쉬\t영어\n서울 금천구\t하이스트 금천\t국어\n경기 화성시\t이룸수학학원\t수학\n서울 동대문\t나정향영어학원\t수학\n인천 부평구\t동화세상 에듀코\t자기주도/학습코칭\n서울 광진구\t이튼클래스\t국어\n경기 안양시\t이엠학원\t영어\n경기 시흥시\tMEKS학원\t영어\n서울 성북구\t킴스잉글리시\t영어\n경남 진주시\t윤선생 스마트 랜드\t영어\n서울 양천구\t엘제이엠수학원\t수학\n서울 금천구\t열린학원\t수학\n경기 성남시\t(주)입실론에듀\t수학\n경기 남양주\t도농 시매쓰\t수학\n경기 파주시\t온새미로입시학원\t국어\n서울 종로구\t정인수학\t수학\n서울 서대문\t에스클래스영어전문학원\t영어\n경기 평택시\t이룸학원\t수학\n서울 강남구\t뮤엠영어세곡학원\t영어\n경기 부천시\t공부독립\t수학\n서울 광진구\t청람학원\t수학\n서울 동대문\t가온국어논술학원\t국어\n충남 천안시\t에버그린학원\t영어\n경기 수원시\t마스터제이학원\t수학\n대구 수성구\t패럴랙스 학원\t영어\n경기 성남시\t이엔에스영어학원\t영어\n서울 양천구\t강대  학원\t영어\n서울 서초구\t에스학원\t수학\n서울 서초구\t페르마수학보습학원\t수학\n인천 남동구\tEiE 서창캠퍼스\t영어\n서울 마포구\t매스토크\t수학\n경기 남양주\tYes학원\t수학\n경기 광명시\t찬수학전문학원\t수학\n경기 파주시\t운정 연솔학원\t수학\n경남 창원시\t탑아카데미학원\t영어\n경기 고양시\t생각하는 황소 화정\t수학\n서울 성북구\t강북 세일학원\t수학\n서울 강남구\t효성수학학원\t수학\n경기 파주시\t김태형영어학원\t영어\n경기 화성시\t고대학원\t국어\n경기 의정부\t삼광학원\t영어\n경기 고양시\t마테마타수학학원\t수학\n경기 광명시\t유라영어학원\t영어\n경기 남양주\t강한수학학원\t수학\n서울 영등포\t김정은 수학\t수학\n서울 강북구\t엠케이수학\t영어\n서울 광진구\t일공구오국어학원\t국어\n경기 화성시\t황은영국어 2관\t국어\n인천 계양구\t아이필학원\t국어\n경기 성남시\t대두수학학원\t국어\n인천 연수구\t김샘수학\u0026유베스타어학원\t영어\n서울 송파구\t와이즈만영재교육 잠실센...\t수학\n서울 노원구\tsky미래연수학학원\t수학\n서울 양천구\t대원학원\t수학\n서울 양천구\t목동ILS\t영어\n인천 연수구\t미래듀학원\t영어\n인천 서구\t수학보호구역\t수학\n서울 강남구\t(주)다원교육\t수학\n경기 부천시\t선진수학보습학원\t수학\n서울 관악구\t관악뉴스터디\t수학\n서울 구로구\t본수학전문학원\t수학\n충남 천안시\t탑씨크리트 교육\t국어\n서울 강남구\tEiE비상매스캔학원\t영어\n인천 서구\t솔로몬 영재학원\t영어\n서울 은평구\t지앤비국제사관어학원\t영어\n경기 김포시\t더완벽한수학학원\t수학\n경기 남양주\tILKI어학원\t영어\n경기 용인시\tYBM 교육 어학원\t영어\n서울 동대문\t동화세상 에듀코\t영어\n경기 김포시\t센트럴1리딩클럽풍무학원\t영어\n경기 양주시\t미래인재학원\t영어\n경기 광명시\t유투엠수학학원\t수학\n서울 노원구\t김지민영어학원\t영어\n인천 서구\t탑클래스종합학원\t수학\n경기 안산시\t엠앤이학원\t수학\n서울 서초구\t제이포커스잉글리쉬\t영어\n경기 고양시\t프렌잉글리시 \u0026차이랑 일...\t영어회화/텝스/토플\n서울 관악구\t진명학원\t수학\n경기 화성시\t파머스영어능동캠퍼스학원\t영어\n충남 천안시\tTE MATH\t국어\n경기 광명시\t이원수학학원\t수학\n서울 도봉구\t도봉 강태우어학원\t국어\n서울 동작구\t윤선생 IGSE\t영어\n경기 고양시\t겨자씨의꿈\t국어\n서울 노원구\t자유자재학원 알파관\t수학\n서울 성북구\t페르마수학학원 성북캠퍼...\t수학\n서울 강서구\t세계로학원\t수학\n서울 강남구\t대치스터디\t수학\n서울 마포구\t더매쓰수학전문\t수학\n경기 성남시\t미래엔 사고력수학\t수학\n서울 성북구\t공주쌤수학학원\t수학\n경기 용인시\t엘리하이어학원\t영어\n서울 노원구\tYBM잉글루\t수학\n서울 강서구\t강서펜타곤학원\t수학\n인천 서구\t올인학원\t영어\n경기 용인시\tTS학원\t영어\n서울 금천구\t수도보습학원\t영어\n경기 성남시\tSummit 영어\t영어\n경기 성남시\t제이엠아이수학학원\t수학\n서울 강남구\t고석용현탑학원\t수학\n경기 용인시\t게이트 영재센터\t수학\n서울 강남구\tSM에듀\t수학\n서울 송파구\t국풍2000 석촌관\t국어\n경기 의정부\t금오민족사관학원\t국어\n경기 고양시\t보스턴영어수학학원\t수학\n인천 서구\tPTM영수전문학원\t수학\n서울 강남구\t메사인재관학원\t수학\n인천 서구\t현수학전문학원\t수학\n경기 군포시\t메타어학원\t영어\n서울 마포구\t밀당영어\t수학\n경남 양산시\t윤선생IGSE아카데미양산가...\t수학\n인천 계양구\t리딩타운어학원\u0026셀파수학\t영어\n경기 부천시\t비욘드잉글리쉬 송도랜드...\t영어\n경기 시흥시\t대치프라임학원\t영어\n서울 광진구\t토크스테이션\t상담직\n경기 성남시\t대치영어연구소\t영어\n인천 부평구\t거산TOP수학학원\t수학\n인천 미추홀\t저스트원학원\t수학\n인천 남동구\t프리메카학원\t수학\n경기 수원시\t오르다샘앤클래스광교학원\t수학\n서울 동작구\t대방웰이스턴영어\t영어\n경기 성남시\t에스알어학원\t영어\n서울 성동구\t성동뉴타운 소마학원\t수학\n인천 부평구\teasy윤 수학영어\t영어\n서울 서초구\tReal 수학학원\t수학\n인천 연수구\tAlfa of Math\t수학\n인천 서구\t투스카이수학과학학원\t수학\n경기 평택시\t비오비에듀학원\t수학\n경기 안산시\t킹스키즈어학원\t영어\n서울 성북구\t정성학원\t영어\n인천 연수구\t줄리킴영어학원\t영어\n경기 하남시\tStudy Factory\t영어\n서울 강남구\t지엘에스에듀\t영어\n경기 용인시\t동백정철어학원\t영어\n경기 용인시\t설연고학원\t수학\n서울 양천구\t샤인학원\t국어\n서울 광진구\t중앙학원\t영어\n경기 부천시\t은 수학영어학원\t수학\n경기 성남시\t한수위학원\t수학\n부산 해운대\t뿌리깊은국어학원\t국어\n서울 서초구\t메이저수학학원\t수학\n경기 안양시\thalo 헤일로수학과학학원\t수학\n서울 강서구\t포레스픽 영어학원\t영어\n인천 남동구\t육일수학학원\t수학\n인천 연수구\t바른영어학원\t영어\n경기 의정부\t팬더쌤영수전문학원\t수학\n세종 \t상상이상학원\t국어\n경기 고양시\t날개달기 국어\t국어\n서울 강동구\t강동하이레벨수학학원\t수학\n서울 강남구\t코어에듀\t수학\n서울 서초구\t(주) 서초아발론\t영어\n서울 강남구\tHabit 9 어학원\t영어\n서울 양천구\tCDC(Catholic Dreams \u0026 Ch...\t수학\n경기 성남시\t서강영어학원\t영어\n서울 동작구\tSAGE 영어학원\t영어\n경기 성남시\t스카이 학원\t영어\n경기 김포시\t더쎈학원\t수학\n제주 제주시\t제이원에듀\t수학\n서울 강남구\t미투스카이 수학전문학원\t수학\n경기 김포시\t사이매쓰학원\t수학\n서울 강남구\t이룸영어\t영어\n서울 중랑구\t일류학원\t영어\n서울 특별시\t더쎈영수학원\t영어\n경기 고양시\t연세위너스학원\t수학\n인천 연수구\t이도수학\t수학\n서울 서대문\t루체테어학원 가재울캠퍼...\t영어\n경기 의정부\t플랜에이수학학원\t수학\n경기 용인시\t빌더스 인텐시브\t영어\n경기 양주시\tG1230(양주점)\t수학\n인천 미추홀\t에듀피아\t영어\n경기 화성시\t엠베스트SE 이산캠퍼스\t영어\n서울 영등포\t멘토아카데미\t수학\n서울 은평구\t아이엠지잉글리시\t수학\n서울 관악구\t민병철주니어학원\t영어\n서울 동대문\tThe큰수학학원\t수학\n인천 서구\t파스칼학원\t국어\n대전 서구\t유클리드 수학전문학원\t수학\n서울 은평구\t해솔학원\t영어\n인천 서구\t하이클래스 입시학원\t수학\n서울 은평구\t알파영어\t영어\n인천 남동구\tELL학원\t영어\n경기 성남시\t지티지 수학학원\t수학\n경기 부천시\tmath153수학학원\t수학\n서울 강동구\t메리트수학학원\t수학\n경기 용인시\t닥터수밀크잉글리쉬\t영어\n경기 파주시\t앤써학원\t수학\n서울 서초구\t(주)잇올\t국어\n경기 김포시\t힘수학\t수학\n서울 도봉구\t삼성영어창일교실학원\t영어\n인천 남동구\t유신해법학원\t영어\n경기 성남시\t플랜에이수학\t수학\n경기 고양시\t명문학원\t영어\n경기 성남시\t마이러닝랩 입시학원\t국어\n경기 시흥시\tM2수학학원\t수학\n경기 광주시\t아발론랭콘광주태전어학원\t영어\n서울 강남구\t다른학원\t국어\n서울 송파구\t진아트잉글리쉬\t영어\n경기 김포시\t웰 영수 전문학원\t영어\n경기 구리시\t현앤장수학학원\t수학\n인천 연수구\t스피드영어학원\t영어\n경기 화성시\t개런티영어학원\t영어\n서울 서초구\t위에듀어학원\t영어\n인천 연수구\tSAC잉글리시아이영어학원\t영어\n서울 강동구\tFTK잉글리쉬\t영어\n서울 용산구\t(주)종로학원하늘교육\t수학\n경기 남양주\t리드N영어수학학원\t수학\n경기 광명시\t지니리영어학원\t영어\n인천 연수구\tFLA영어입시전문학원\t영어\n경기 파주시\t다니엘 학원\t수학\n경기 성남시\t신혜영\t수학\n경기 파주시\t이앤서학원\t영어\n서울 강남구\t백년나무교육\t수학\n서울 구로구\t(주)건강한학습연구소\t국어\n서울 서초구\t수학대장 방배캠퍼스\t수학\n경기 파주시\t김동수학원\t수학\n서울 양천구\t11월의혁명 영어전문학원\t영어\n경기 하남시\tU2M감일캠퍼스\t수학\n서울 동작구\t(주) 아이진로\t수학\n경기 수원시\t쌤종합학원\t영어\n충남 천안시\t(주)대치입시앤컨설팅학원\t수학\n서울 노원구\t매씽에듀\t수학\n서울 양천구\t류다현 수학전문학원\t수학\n인천 서구\t무결학원\t수학\n서울 동대문\t주노영어\t영어\n경기 안산시\t올리고 영수학원\t영어\n서울 도봉구\tlns수학학원\t수학\n충남 아산시\t미스터 밥 수학 학원\t수학\n인천 서구\tIELC어학원\t영어\n인천 남동구\t수학사이다학원\t수학\n서울 강남구\t청명학원\t과학계열\n경기 성남시\t미래를 여는 창\t수학\n경기 안산시\t대월아카데미\t영어\n제주 서귀포\tEduStone\t영어\n서울 강남구\t시그마베스트학원\t수학\n경기 부천시\t현대해법영어보습학원\t영어\n인천 남동구\tSNU 영수과 전문학원\t수학\n경기 수원시\t대치학원\t국어\n인천 서구\t에이플러스\t수학\n서울 영등포\t국제어학원당산캠퍼스\t영어\n대구 수성구\t권진희국어학원\t국어\n서울 강동구\t삼성영어셀레나학원\t영어\n서울 양천구\t파이수학\t수학\n경기 고양시\t재니 학원\t영어\n서울 마포구\t와이키즈 마포센터\t수학\n인천 부평구\t박쌤학원\t영어\n부산 부산진\t교원더퍼스트플래너스수학...\t수학\n서울 노원구\t매쓰플랜수학전문학원\t수학\n서울 서초구\t중앙학원\t수학\n서울 강서구\t주식회사 와이디아카데미\t영어\n서울 도봉구\t모스트학원\t수학\n경기 광주시\t인사이트학원\t수학\n서울 강남구\t(주)아인슈타인교육\t수학\n경기 용인시\t수학사랑학원\t수학\n서울 금천구\tJYP영어학원\t영어\n서울 성북구\t강남펜타스학원\t국어\n서울 강남구\t수학몬스터대치학원\t수학\n경기 파주시\t프랩학원\t수학\n경기 고양시\tEIE 고려대국제어학원\t영어\n경기 부천시\t멘토초중보습학원\t영어\n서울 은평구\t웨스턴영어학원\t영어\n경기 부천시\t홍수학영어입시학원\t수학\n경기 용인시\tELI어학원\t영어\n서울 관악구\t와이즈만 관악센터\t수학\n경기 의정부\t맨투맨학원호원센터\t수학\n서울 동작구\t강한학원\t수학\n경기 화성시\t몬스터교육\t수학\n경기 남양주\t문희영어학원\t영어\n경기 수원시\t일로드수학학원\t수학\n서울 광진구\t뉴스트학원\t영어\n경기 용인시\t드림수학전문학원\t수학\n경기 화성시\tBLAST어학원\t영어\n경기 화성시\tLETS영어수학전문학원\t수학\n서울 양천구\t청담클루빌영어학원\t영어\n서울 노원구\t최고수보습학원\t수학\n대전 서구\t명인학원\t수학\n경기 의정부\t민락맨투맨학원\t국어\n서울 강남구\t강남SK학원\t국어\n서울 구로구\t대치학원\t영어\n서울 강동구\t캐슬The오름수학\t수학\n"
+          },
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"result-alert alert-warning\" role\u003d\"alert\"\u003e\u003cbutton type\u003d\"button\" class\u003d\"close\" data-dismiss\u003d\"alert\" aria-label\u003d\"Close\"\u003e\u003cspan aria-hidden\u003d\"true\"\u003e\u0026times;\u003c/span\u003e\u003c/button\u003e\u003cstrong\u003eOutput is truncated\u003c/strong\u003e to 1000 rows. Learn more about \u003cstrong\u003ezeppelin.spark.maxResult\u003c/strong\u003e\u003c/div\u003e\n"
+          },
+          {
+            "type": "TEXT",
+            "data": ""
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://172.17.0.2:4040/jobs/job?id\u003d26"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1631965766176_1874069416",
+      "id": "20210918-114926_1153360782",
+      "dateCreated": "2021-09-18 11:49:26.176",
+      "dateStarted": "2021-09-18 11:49:57.781",
+      "dateFinished": "2021-09-18 11:49:57.935",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect count(distinct(`법정동명`)) from tutor_local_final",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 11:57:05.816",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "count(DISTINCT 법정동명)": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                }
+              },
+              "commonSetting": {}
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "count(DISTINCT 법정동명)\n85\n"
+          },
+          {
+            "type": "TEXT",
+            "data": ""
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://172.17.0.2:4040/jobs/job?id\u003d74"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1631966217367_1489335045",
+      "id": "20210918-115657_2124611231",
+      "dateCreated": "2021-09-18 11:56:57.367",
+      "dateStarted": "2021-09-18 11:57:03.159",
+      "dateFinished": "2021-09-18 11:57:04.957",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nselect `법정동명`,count(`학원명`) as `강사채용 학원수` from tutor_local_final group by `법정동명` order by `강사채용 학원수` desc",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 13:26:42.759",
+      "config": {
+        "colWidth": 12.0,
+        "fontSize": 9.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "table": {
+                  "tableGridState": {},
+                  "tableColumnTypeState": {
+                    "names": {
+                      "법정동명": "string",
+                      "강사채용 학원수": "string"
+                    },
+                    "updated": false
+                  },
+                  "tableOptionSpecHash": "[{\"name\":\"useFilter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable filter for columns\"},{\"name\":\"showPagination\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable pagination for better navigation\"},{\"name\":\"showAggregationFooter\",\"valueType\":\"boolean\",\"defaultValue\":false,\"widget\":\"checkbox\",\"description\":\"Enable a footer for displaying aggregated values\"}]",
+                  "tableOptionValue": {
+                    "useFilter": false,
+                    "showPagination": false,
+                    "showAggregationFooter": false
+                  },
+                  "updated": false,
+                  "initialized": false
+                },
+                "stackedAreaChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "lineChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                },
+                "multiBarChart": {
+                  "rotate": {
+                    "degree": "-45"
+                  },
+                  "xLabelStatus": "default"
+                }
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "법정동명",
+                  "index": 0.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "학원개수",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "법정동명\t강사채용 학원수\n서울 강남구\t76\n경기 성남시\t53\n경기 화성시\t49\n경기 용인시\t47\n경기 고양시\t44\n인천 서구\t38\n경기 수원시\t37\n서울 서초구\t34\n경기 남양주\t33\n경기 김포시\t32\n서울 양천구\t32\n경기 부천시\t31\n인천 남동구\t27\n서울 노원구\t26\n인천 연수구\t25\n서울 마포구\t24\n서울 송파구\t24\n경기 의정부\t22\n경기 파주시\t21\n서울 광진구\t20\n서울 강동구\t20\n서울 동대문\t19\n경기 광명시\t19\n경기 시흥시\t18\n서울 성북구\t18\n경기 안산시\t18\n서울 동작구\t17\n경기 안양시\t16\n서울 구로구\t15\n서울 은평구\t15\n인천 부평구\t14\n경기 하남시\t14\n서울 관악구\t14\n서울 영등포\t12\n경기 광주시\t12\n서울 강서구\t12\n경기 평택시\t11\n인천 계양구\t10\n서울 도봉구\t10\n경기 구리시\t9\n충남 천안시\t7\n서울 서대문\t7\n경기 군포시\t7\n서울 금천구\t7\n제주 서귀포\t6\n경기 양주시\t5\n서울 성동구\t5\n충남 아산시\t5\n서울 강북구\t5\n대전 서구\t4\n인천 미추홀\t4\n서울 중랑구\t4\n대구 수성구\t4\n충북 청주시\t4\n경기 오산시\t4\n부산 해운대\t3\n제주 제주시\t3\n부산 사하구\t3\n대구 북구\t3\n강원 춘천시\t3\n경남 진주시\t3\n서울 종로구\t3\n서울 용산구\t2\n경기 이천시\t2\n경기 안성시\t2\n서울 특별시\t2\n부산 부산진\t2\n경남 양산시\t2\n충남 서산시\t2\n경기 여주시\t2\n세종 \t2\n대구 동구\t2\n대구 남구\t2\n부산 북구\t2\n부산 강서구\t2\n부산 남구\t1\n부산 영도구\t1\n부산 기장군\t1\n인천 동구\t1\n대구 달성군\t1\n대구 달서구\t1\n대전 중구\t1\n충남 논산시\t1\n광주 북구\t1\n경남 창원시\t1\n"
+          },
+          {
+            "type": "TEXT",
+            "data": ""
+          }
+        ]
+      },
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            "http://172.17.0.2:4040/jobs/job?id\u003d163"
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "apps": [],
+      "jobName": "paragraph_1631965802813_-1615178776",
+      "id": "20210918-115002_275048329",
+      "dateCreated": "2021-09-18 11:50:02.813",
+      "dateStarted": "2021-09-18 13:26:43.052",
+      "dateFinished": "2021-09-18 13:26:45.190",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "2021-09-18 11:49:34.103",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1631965774102_-1190025110",
+      "id": "20210918-114934_243917881",
+      "dateCreated": "2021-09-18 11:49:34.102",
+      "status": "READY",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "프로젝트2/강사",
+  "id": "2GFXRNMVH",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {
+    "md:shared_process": [],
+    "mysql:shared_process": [],
+    "spark:shared_process": []
+  },
+  "config": {
+    "isZeppelinNotebookCronEnable": false
+  },
+  "info": {}
+}

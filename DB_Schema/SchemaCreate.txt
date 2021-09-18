@@ -1,0 +1,141 @@
+Table "학군"{
+  "학군ID" int 
+  "법정동코드" int [pk]
+  "비평준화여부" boolean
+  "전체학령인구" int
+  "교원1인당 학생수" int
+  "중학교 학업중단자수" int
+  "고등학교 학업중단자수" int
+ }
+ Table "교육청"{
+  "교육청코드" int [pk]
+  "학군ID" int
+  "교육청명" varchar
+  "시도명" varchar
+  "예산" int
+ }
+
+Table "학원"{
+  "학원ID" int [pk]
+  "학군ID" int 
+  "법정동명" varchar
+  "학원명" varchar
+  "계열명" varchar
+  "주소" varchar
+  "정원합계" int
+ }
+ Table "강사"{
+  "강사채용ID" int [pk]
+  "학군ID" int 
+  "법정동코드" int 
+  "법정동명" varchar
+  "학원명" varchar
+  "과목명" varchar
+
+ }
+Table "지역"{
+  "법정동코드" int [pk]
+  "시도명" varchar
+  "법정동명" varchar
+ }
+  Table "유초등학교"{
+  "학교ID" int [pk]
+  "학군ID" int
+  "유초등학교명" varchar 
+  "학교종류" varchar
+ }
+Table "중학교"{
+  "학교ID" int [pk]
+  "학군ID" int
+  "중학교명" varchar 
+  "학교종류" varchar
+  "특목고진학자수" int
+ }
+ Table "고등학교"{
+  "학교ID" int [pk]
+  "학군ID" int
+  "고등학교명" varchar 
+  "학교종류" varchar
+  "서울대합격자수" int
+ }
+  Table "지하철"{
+  "지하철역번호" int [pk]
+  "지하철역사명" int
+  "노선명" varchar
+  "노선번호" varchar
+  "환승역구분" varchar
+  "환승노선개수" int
+  "환승노선번호" varchar
+  "환승노선명" varchar
+  "법정동코드" int 
+ }
+  Table "버스정류장"{
+  "버스정류장ID" int [pk]
+  "법정동코드" int 
+  "버스정류장명" int
+ }
+  Table "유흥업소"{
+  "유흥업소ID" int [pk]
+  "법정동코드" int 
+  "사업장명" varchar
+  "구분명" varchar
+ }
+
+Table "가구"{
+  "가구ID" int [pk]
+  "법정동코드" varchar
+  "건강보험료" int 
+  "급여인원"  int 
+  "급여금액" int
+ }
+ Table "부동산"{
+  "부동산ID" int [pk]
+  "법정동코드" varchar
+  "거래금액" int 
+  "건축년도"  varchar 
+  "계약날짜" datetime
+  "아파트명" varchar
+  "면적" int
+  "층" int
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ref: "지역"."법정동코드" - "학군"."법정동코드"
+
+
+Ref: "지역"."법정동코드" < "버스정류장"."법정동코드"
+
+Ref: "지역"."법정동코드" < "지하철"."법정동코드"
+
+Ref: "지역"."법정동코드" < "유흥업소"."법정동코드"
+
+Ref: "학군"."학군ID" < "학원"."학군ID"
+
+Ref: "강사"."학군ID" > "학군"."학군ID"
+
+Ref: "지역"."법정동코드" - "가구"."법정동코드"
+
+Ref: "지역"."법정동코드" < "부동산"."법정동코드"
+
+Ref: "학군"."학군ID" > "교육청"."학군ID"
+
+Ref: "학군"."학군ID" < "유초등학교"."학군ID"
+
+Ref: "중학교"."학군ID" > "학군"."학군ID"
+
+Ref: "고등학교"."학군ID" > "학군"."학군ID"
+
