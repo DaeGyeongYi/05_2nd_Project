@@ -1,0 +1,1111 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+    <meta charset="utf-8">
+        <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
+        <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="content">
+    <div class="page-inner">
+		<div class="page-header">
+				<h4 class="page-title"style="font-size:40px">Dashboard</h4>
+				<ul class="breadcrumbs">
+					<li class="nav-item" style="font-family: 'Jua'">
+						<a href="#"style="font-family: 'Jua'"> 학군 비교 및 분석을 위한 수집 시스템 데이터 현황</a>
+					</li>
+				</ul>
+			</div>
+      <div class="row">
+         <div class="col-sm-8">
+            <div class="card card-transparent">
+               <div class="card-header">
+                    <div class="card-title text-center"style="font-family: 'Jua'">전국 서울대 합격자 비교</div>
+               </div>
+               <div class="card-body">
+                   <div class="mapcontainer">
+                       <div id='map' style='width: 110%; height: 600px;'></div>
+                   </div>
+               </div>
+            </div>
+         </div>
+		  <div class="col-sm-4">
+			  <div class="card card-transparent">
+				  <div class="card-header">
+					  <div class="card-title text-center"style="font-family: 'Jua'">법정동명 서울대 합격자 순위</div>
+				  </div>
+				  <div class="card-body">
+					  <table class="table table-head-bg-primary mt-4">
+						  <thead>
+						  <tr>
+							  <th scope="col">순위</th>
+							  <th scope="col">법정동명</th>
+							  <th scope="col">합격자 수(명)</th>
+						  </tr>
+						  </thead>
+						  <tbody>
+						  <tr>
+							  <td>1</td>
+							  <td>서울 강남구</td>
+							  <td>233</td>
+						  </tr>
+						  <tr>
+							  <td>2</td>
+							  <td>서울 종로구</td>
+							  <td>175</td>
+						  </tr>
+						  <tr>
+							  <td>3</td>
+							  <td>서울 서초구</td>
+							   <td>113</td>
+						  </tr>
+						   <tr>
+							  <td>4</td>
+							   <td>서울 광진구</td>
+							   <td>102</td>
+						  </tr>
+						   <tr>
+							  <td>5</td>
+							  <td>경기 성남시</td>
+							   <td>93</td>
+						  </tr>
+						   <tr>
+							  <td>6</td>
+							   <td>서울 은평구</td>
+							   <td>76</td>
+						  </tr>
+						   <tr>
+							  <td>7</td>
+							   <td>서울 강동구</td>
+							   <td>72</td>
+						  </tr>
+						   <tr>
+							  <td>8</td>
+							  <td>대구 수성구</td>
+							   <td>68</td>
+						  </tr>
+						  </tbody>
+					  </table>
+				  </div>
+			  </div>
+		  </div>
+
+		<div class="col-md-12">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title text-center" style="font-family: 'Jua'">시도별 데이터 현황</h4>
+						</div>
+						<div class="card-body">
+							<ul class="nav nav-pills nav-secondary" id="pill-tab" role="tablist">
+								<li class="nav-item">
+									<a class="nav-link active" id="pill-home-tab" data-toggle="pill" href="#pill-home" role="tab" aria-controls="pill-home" aria-selected="true">가계 현황</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="pill-profile-tab" data-toggle="pill" href="#pill-profile" role="tab" aria-controls="pill-profile" aria-selected="false">학업 현황</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="pill-contact-tab" data-toggle="pill" href="#pill-contact" role="tab" aria-controls="pill-contact" aria-selected="false">도시 인프라 현황</a>
+								</li>
+							</ul>
+							<div class="tab-content mt-2 mb-3" id="pill-tabContent">
+								<div class="tab-pane fade show active" id="pill-home" role="tabpanel" aria-labelledby="pill-home-tab">
+								<div class="chart-container" height="500">
+                    				 <canvas id="salaryavgLineChart"  height="250"></canvas>
+                  				</div>
+									<div class="chart-container">
+                    					 <canvas id="houseavgLineChart"  height="250"></canvas>
+                 					 </div>
+								</div>
+								<div class="tab-pane fade" id="pill-profile" role="tabpanel" aria-labelledby="pill-profile-tab">
+									<div class="chart-container">
+						 			 <canvas id="school_multipleLineChart" ></canvas>
+									  </div>
+									<div class="chart-container">
+						 				 <canvas id="multipleBarChart" ></canvas>
+								  </div>
+								</div>
+								<div class="tab-pane fade" id="pill-contact" role="tabpanel" aria-labelledby="pill-contact-tab">
+									<div class="chart-container">
+									<canvas id="bar_lineChart"  ></canvas>
+										</div>
+									 <div class="chart-container">
+						  				<canvas id="sub_multipleLineChart"></canvas>
+					  				</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+		  <div class="col-md-6">
+			  <div class="card">
+				  <div class="card-header">
+					  <div class="card-title text-center"style="font-family: 'Jua'">시도별 교육청 예산 비율</div>
+				  </div>
+				  <div class="card-body">
+					  <div class="chart-container">
+						  <canvas id="pieChart" style="width: 100%; height: 420px"></canvas>
+					  </div>
+				  </div>
+			  </div>
+		  </div>
+
+
+<!--	  <div class="col-md-6">-->
+<!--			  <div class="card">-->
+<!--				  <div class="card-header">-->
+<!--					  <div class="card-title text-center"style="font-family: 'Jua'">고등학교 종류별 서울대 합격자수</div>-->
+<!--				  </div>-->
+<!--				  <div class="card-body">-->
+<!--					  <div class="chart-container">-->
+<!--						  <canvas id="lineChart"></canvas>-->
+<!--					  </div>-->
+<!--				  </div>-->
+<!--			  </div>-->
+<!--		  </div>-->
+		<div class="col-md-6">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title text-center"style="font-family: 'Jua'">전국 대비 수도권 비교</h4>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-5 col-md-4">
+									<div class="nav flex-column nav-pills nav-secondary nav-pills-no-bd nav-pills-icons" id="v-pills-tab-with-icon" role="tablist" aria-orientation="vertical">
+										<a class="nav-link active" id="v-pills-home-tab-icons" data-toggle="pill" href="#v-pills-home-icons" role="tab" aria-controls="v-pills-home-icons" aria-selected="true">
+											<i class="flaticon-pencil"></i>
+											입시
+										</a>
+										<a class="nav-link" id="v-pills-profile-tab-icons" data-toggle="pill" href="#v-pills-profile-icons" role="tab" aria-controls="v-pills-profile-icons" aria-selected="false">
+											<i class="flaticon-coins"></i>
+											소득
+										</a>
+											<a class="nav-link" id="v-pills-web-tab-icons" data-toggle="pill" href="#v-pills-web-icons" role="tab" aria-controls="v-pills-web-icons" aria-selected="false">
+											<i class="flaticon-agenda-1"></i>
+											학원
+										</a>
+										<a class="nav-link" id="v-pills-car-tab-icons" data-toggle="pill" href="#v-pills-car-icons" role="tab" aria-controls="v-pills-car-icons" aria-selected="false">
+											<i class="flaticon-delivery-truck"></i>
+											교통
+										</a>
+									</div>
+								</div>
+								<div class="col-7 col-md-8">
+									<div class="tab-content" id="v-pills-with-icon-tabContent">
+
+										<div class="tab-pane fade show active" id="v-pills-home-icons" role="tabpanel" aria-labelledby="v-pills-home-tab-icons">
+											<div class="card-body">
+												<div class="chart-container">
+													<canvas id="total_study_barChart"></canvas>
+												</div>
+												<div class="d-flex justify-content-center p-9">
+													<p style=" font-size:13">서울: 19.33%  경기: 22.26%</p>
+															</div>
+
+											</div>
+										</div>
+										<div class="tab-pane fade" id="v-pills-profile-icons" role="tabpanel" aria-labelledby="v-pills-profile-tab-icons">
+											<div class="card-body">
+												<div class="chart-container">
+													<canvas id="total_money_barChart"></canvas>
+												</div>
+
+
+											</div>
+										</div>
+
+										<div class="tab-pane fade" id="v-pills-web-icons" role="tabpanel" aria-labelledby="v-pills-web-tab-icons">
+											<div class="card-body">
+												<div class="chart-container">
+													<canvas id="total_aca_barChart"></canvas>
+												</div>
+													<div class="d-flex justify-content-center p-6">
+								<p style="font-size:13" >서울: 20.81%   경기: 26.11%</p>
+							</div>
+
+
+											</div>
+										</div>
+										<div class="tab-pane fade" id="v-pills-car-icons" role="tabpanel" aria-labelledby="v-pills-car-tab-icons">
+											<div class="card-body">
+												<div class="chart-container">
+													<canvas id="total_car_barChart"></canvas>
+												</div>
+												<div class="d-flex justify-content-center p-6" >
+								<p style=" font-size:13">서울: 35.43%   경기: 23.91%</p>
+							</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								</div>
+							</div>
+						</div>
+
+				</div>
+
+
+		<div class="col-md-12"  >
+					<div class="card">
+							<div class="card-header">
+							<h4 class="card-title text-center" style="font-family: 'Jua'">서울시 구별 데이터 현황</h4>
+						</div>
+						<div class="card-body" >
+							<ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
+								<li class="nav-item">
+									<a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">입시실적</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">사교육/공교육 현황</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">근로소득</a>
+								</li>
+							</ul>
+							<div class="tab-content mt-2 mb-3" id="pills-tabContent">
+								<div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+								<div class="chart-container">
+												<canvas id="seoul_multipleLineChart"></canvas>
+											</div>
+
+								</div>
+								<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+									<div class="chart-container">
+										<canvas id="seoul_aca_lineChart"></canvas>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+									<div class="chart-container">
+                    					 <canvas id="seoulavgLineChart"></canvas>
+                 					 </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+      </div>
+    </div>
+   </div>
+
+<!--
+<div id='map' style='width: 100%; height: 100%;'></div>
+-->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+   <!-- Atlantis DEMO methods, don't include it in your project! -->
+
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1Ijoid29va3lvIiwiYSI6ImNrbHoxcGt2ZDBxNW8ydXFrOWE5MDRrbDUifQ.L1osw4Ry17ZfxGsAssfHLA';
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/wookyo/cku1bo48a3mb817qsjyms96m7',
+        center : [127.29 ,35.48],
+        zoom : 6.2,
+        bearing: -20,
+        pitch:45,
+        cursor_style: 'pointer',
+      });
+
+
+<!--		var lineChart = document.getElementById('lineChart').getContext('2d'),-->
+		var bar_lineChart = document.getElementById('bar_lineChart').getContext('2d'),
+
+		pieChart = document.getElementById('pieChart').getContext('2d'),
+		school_multipleLineChart = document.getElementById('school_multipleLineChart').getContext('2d'),
+		sub_multipleLineChart = document.getElementById('sub_multipleLineChart').getContext('2d'),
+		multipleBarChart = document.getElementById('multipleBarChart').getContext('2d'),
+<!--		시도별 소득-->
+		salaryavgLineChart = document.getElementById('salaryavgLineChart').getContext('2d'),
+      	houseavgLineChart = document.getElementById('houseavgLineChart').getContext('2d'),
+<!--      	서울시 구별 소득 입시 학원 탭 그래프-->
+	seoulavgLineChart = document.getElementById('seoulavgLineChart').getContext('2d'),
+	seoul_multipleLineChart = document.getElementById('seoul_multipleLineChart').getContext('2d'),
+	seoul_aca_lineChart = document.getElementById('seoul_aca_lineChart').getContext('2d'),
+<!--전국 대비 상위 3개 지역 탭 그래프-->
+	total_study_barChart = document.getElementById('total_study_barChart').getContext('2d'),
+	total_aca_barChart = document.getElementById('total_aca_barChart').getContext('2d'),
+	total_car_barChart = document.getElementById('total_car_barChart').getContext('2d'),
+	seoul_aca_lineChart = document.getElementById('seoul_aca_lineChart').getContext('2d');
+
+
+
+
+<!--			var myLineChart = new Chart(lineChart, {-->
+<!--			type: 'line',-->
+<!--			data: {-->
+<!--				labels:[{% for label in h1_labels %}"{{ label|safe}}",{% endfor %}],-->
+
+
+<!--				datasets: [{-->
+<!--					label: "서울대합격자수",-->
+<!--					borderColor: "#1d7af3",-->
+<!--					pointBorderColor: "#FFF",-->
+<!--					pointBackgroundColor: "#1d7af3",-->
+<!--					pointBorderWidth: 2,-->
+<!--					pointHoverRadius: 4,-->
+<!--					pointHoverBorderWidth: 1,-->
+<!--					pointRadius: 4,-->
+<!--					backgroundColor: 'transparent',-->
+<!--					fill: true,-->
+<!--					borderWidth: 2,-->
+<!--					data:[{% for data in h1_data %}{{ data|safe}},{% endfor %}],-->
+
+<!--				}]-->
+<!--			},-->
+<!--			options : {-->
+<!--				responsive: true,-->
+<!--				maintainAspectRatio: false,-->
+<!--				legend: {-->
+<!--					position: 'bottom',-->
+<!--					labels : {-->
+<!--						padding: 10,-->
+<!--						fontColor: '#1d7af3',-->
+<!--					},-->
+<!--				scales: {-->
+<!--				xAxes: [{-->
+<!--					ticks:{-->
+<!--						fontColor : 'rgba(12, 13, 13, 1)',-->
+<!--						fontSize : 4-->
+<!--					},-->
+<!--					gridLines:{-->
+<!--						color: "rgba(87, 152, 23, 1)",-->
+<!--						lineWidth: 3-->
+<!--					}-->
+<!--				}]-->
+<!--			}-->
+<!--				},-->
+<!--				tooltips: {-->
+<!--					bodySpacing: 4,-->
+<!--					mode:"nearest",-->
+<!--					intersect: 0,-->
+<!--					position:"nearest",-->
+<!--					xPadding:10,-->
+<!--					yPadding:10,-->
+<!--					caretPadding:10-->
+<!--				},-->
+<!--				layout:{-->
+<!--					padding:{left:15,right:15,top:15,bottom:15}-->
+<!--				}-->
+<!--			}-->
+<!--		});-->
+
+
+
+		var myPieChart = new Chart(pieChart, {
+			type: 'pie',
+			data: {
+				datasets: [{
+					data: [{% for data in office_data %}{{ data|safe}},{% endfor %}],
+					backgroundColor :["#85bbcb","#486381","#9ac8f2",'#5f9cd2','#276aa6','#272769'
+					, '#4a8bf1','#585964','#1e94a0','#20535e','#333b63','#32335e','#c5d4d4','#688786','#3d585e',
+					'#28373e','#161e20'],
+					borderWidth: 0.1
+				}],
+				labels: [{% for label in office_labels %}"{{ label|safe}}",{% endfor %}]
+			},
+			options : {
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					position : 'right',
+					labels : {
+						fontColor: 'rgb(154, 154, 154)',
+						fontSize: 12,
+						usePointStyle : true,
+						padding: 11
+					}
+				},
+				pieceLabel: {
+					render: 'percentage',
+					fontColor: 'white',
+					fontSize: 15,
+				},
+				tooltips: true,
+				layout: {
+					padding: {
+						left: 5,
+						right: 5,
+						top: 5,
+						bottom: 5
+					}
+				}
+			}
+		})
+
+
+		var school_multipleLineChart = new Chart(school_multipleLineChart, {
+			type: 'line',
+			data: {
+				labels: [{% for label in h2_labels %}"{{ label|safe}}",{% endfor %}],
+				datasets: [{
+					label: "특목고진학자수",
+					borderColor: "#1d7af3",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#1d7af3",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [{% for data in m_data %}{{ data|safe}},{% endfor %}]
+				},{
+					label: "서울대합격자수",
+					borderColor: "#59d05d",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#59d05d",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [{% for data in h2_data %}{{ data|safe}},{% endfor %}]
+				}]
+			},
+			options : {
+				title: {
+					fontSize:16,
+					display: true,
+					text: '시도별 중등 입시실적'
+				},
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					position: 'bottom',
+				},
+				tooltips: {
+					bodySpacing: 4,
+					mode:"nearest",
+					intersect: 0,
+					position:"nearest",
+					xPadding:10,
+					yPadding:10,
+					caretPadding:10
+				},
+				layout:{
+					padding:{left:15,right:15,top:15,bottom:15}
+				}
+			}
+		});
+
+		var sub_multipleLineChart = new Chart(sub_multipleLineChart, {
+			type: 'line',
+			data: {
+				labels: [{% for label in sub_labels %}"{{ label|safe}}",{% endfor %}],
+				datasets: [{
+					label: "지하철역개수",
+					borderColor: "#1d7af3",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#1d7af3",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [{% for data in sub_data %}{{ data|safe}},{% endfor %}]
+				},{
+					label: "환승역개수",
+					borderColor: "#59d05d",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#59d05d",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [{% for data in sub_data2 %}{{ data|safe}},{% endfor %}]
+				}]
+			},
+			options : {
+				title: {
+					fontSize:16,
+					display: true,
+					text: '시도별 지하철 및 환승역 개수'
+				},
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					position: 'bottom',
+				},
+				tooltips: {
+					bodySpacing: 4,
+					mode:"nearest",
+					intersect: 0,
+					position:"nearest",
+					xPadding:10,
+					yPadding:10,
+					caretPadding:10
+				},
+				layout:{
+					padding:{left:15,right:15,top:15,bottom:15}
+				}
+			}
+		});
+
+		var multipleBarChart = new Chart(multipleBarChart, {
+			type: 'bar',
+			data: {
+				labels:[{% for label in s_r1_labels %}"{{ label|safe}}",{% endfor %}],
+				datasets : [{
+					label: "중학교 학업중단자",
+					yAxisID:'A',
+					backgroundColor: '#59d05d',
+					borderColor: '#59d05d',
+					data: [{% for data in s_r1_data %}{{ data|safe}},{% endfor %}],
+				},{
+					label: "고등학교 학업중단자",
+					yAxisID:'A',
+					backgroundColor: '#fdaf4b',
+					borderColor: '#fdaf4b',
+					data: [{% for data in s_r2_data %}{{ data|safe}},{% endfor %}],
+				}, {
+					label: "중등학령인구",
+					type:'line',
+					yAxisID:'B',
+					borderColor: "#177dff",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#177dff",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [{% for data in s_r3_data %}{{ data|safe}},{% endfor %}],
+				}],
+			},
+			options: {
+
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					position : 'bottom'
+				},
+				title: {
+					fontSize:16,
+					display: true,
+					text: '시도별 중등학업중단자 / 학령인구'
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false
+				},
+				responsive: true,
+				scales: {
+					xAxes: [{
+						stacked: true,
+					}],
+					yAxes: [{
+						id:'A',
+						type:'linear',
+						position:'left',
+						ticks:{
+
+
+						stacked: true
+						}}, {
+						id:'B',
+						type:'linear',
+						position:'right',
+						ticks: {
+
+						fontColor:'#177dff'
+						}
+
+					}]
+				}
+			}
+		});
+		var salaryavgLineChart = new Chart(salaryavgLineChart, {
+         type: 'line',
+         data: {
+            labels:[{% for label in salavg_labels %}"{{ label|safe }}",{% endfor %}],
+
+            datasets: [{
+               label: "평균 근로소득",
+               borderColor: "#1d7af3",
+               pointBorderColor: "#FFF",
+               pointBackgroundColor: "#1d7af3",
+               pointBorderWidth: 2,
+               pointHoverRadius: 4,
+               pointHoverBorderWidth: 1,
+               pointRadius: 4,
+               backgroundColor: 'transparent',
+               fill: true,
+               borderWidth: 2,
+               data:[{% for data in salavg_data %}{{ data|safe }},{% endfor %}],
+
+            }]
+         },
+         options : {
+         	title: {
+         		fontSize:16,
+					display: true,
+					text: '시도별 평균 근로소득'
+				},
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+               position: 'bottom',
+               labels : {
+                  padding: 10,
+                  fontColor: '#1d7af3',
+               }
+            },
+            tooltips: {
+               bodySpacing: 4,
+               mode:"nearest",
+               intersect: 0,
+               position:"nearest",
+               xPadding:10,
+               yPadding:10,
+               caretPadding:10
+            },
+            layout:{
+               padding:{left:15,right:15,top:15,bottom:15}
+            }
+         }
+      });
+
+      var houseavgLineChart = new Chart(houseavgLineChart, {
+         type: 'line',
+         data: {
+            labels:[{% for label in houseavg_labels %}"{{ label|safe }}",{% endfor %}],
+
+            datasets: [{
+               label: "평균 건강보험료",
+               borderColor: "#1d7af3",
+               pointBorderColor: "#FFF",
+               pointBackgroundColor: "#1d7af3",
+               pointBorderWidth: 2,
+               pointHoverRadius: 4,
+               pointHoverBorderWidth: 1,
+               pointRadius: 4,
+               backgroundColor: 'transparent',
+               fill: true,
+               borderWidth: 2,
+               data:[{% for data in houseavg_data %}{{ data|safe }},{% endfor %}]
+            }]
+         },
+         options : {
+         		title: {
+         			fontSize: 16,
+					display: true,
+					text: '시도별 평균 건강보험료'
+				},
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+               position: 'bottom',
+               labels : {
+                  padding: 10,
+                  fontColor: '#1d7af3',
+               }
+            },
+            tooltips: {
+               bodySpacing: 4,
+               mode:"nearest",
+               intersect: 0,
+               position:"nearest",
+               xPadding:10,
+               yPadding:10,
+               caretPadding:10
+            },
+            layout:{
+               padding:{left:15,right:15,top:15,bottom:15}
+            }
+         }
+      });
+      		var bar_lineChart = new Chart(bar_lineChart, {
+			type: 'line',
+			data: {
+				labels:[{% for label in bar_labels %}"{{ label|safe}}",{% endfor %}],
+
+				datasets: [{
+					label: "사업장수",
+					borderColor: "#1d7af3",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#1d7af3",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data:[{% for data in bar_data %}{{ data|safe}},{% endfor %}],
+
+				}]
+			},
+			options : {
+			title: {
+				fontSize:16,
+					display: true,
+					text: '시도별 유흥업소 개수'
+				},
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					position: 'bottom',
+					labels : {
+						padding: 10,
+						fontColor: '#1d7af3',
+					},
+
+				},
+				tooltips: {
+					bodySpacing: 4,
+					mode:"nearest",
+					intersect: 0,
+					position:"nearest",
+					xPadding:10,
+					yPadding:10,
+					caretPadding:10
+				},
+				layout:{
+					padding:{left:15,right:15,top:15,bottom:15}
+				}
+			}
+		});
+				var seoul_multipleLineChart = new Chart(seoul_multipleLineChart, {
+			type: 'line',
+			data: {
+				labels: [{% for label in h3_labels %}"{{ label|safe}}",{% endfor %}],
+				datasets: [{
+					label: "서울대합격자수",
+					borderColor: "#1d7af3",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#1d7af3",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [{% for data in h3_data %}{{ data|safe}},{% endfor %}]
+				},{
+					label: "특목고진학자수",
+					borderColor: "#59d05d",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#59d05d",
+					pointBorderWidth: 2,
+					pointHoverRadius: 4,
+					pointHoverBorderWidth: 1,
+					pointRadius: 4,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [{% for data in m3_data %}{{ data|safe}},{% endfor %}]
+				}]
+			},
+			options : {
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					position: 'top',
+				},
+				tooltips: {
+					bodySpacing: 4,
+					mode:"nearest",
+					intersect: 0,
+					position:"nearest",
+					xPadding:10,
+					yPadding:10,
+					caretPadding:10
+				},
+				layout:{
+					padding:{left:15,right:15,top:15,bottom:15}
+				}
+			}
+		});
+		var seoulavgLineChart = new Chart(seoulavgLineChart, {
+         type: 'line',
+         data: {
+            labels:[{% for label in seoulavg_labels %}"{{ label|safe }}",{% endfor %}],
+
+            datasets: [{
+               label: "평균 근로소득",
+               borderColor: "#1d7af3",
+               pointBorderColor: "#FFF",
+               pointBackgroundColor: "#1d7af3",
+               pointBorderWidth: 2,
+               pointHoverRadius: 4,
+               pointHoverBorderWidth: 1,
+               pointRadius: 4,
+               backgroundColor: 'transparent',
+               fill: true,
+               borderWidth: 2,
+               data:[{% for data in seoulavg_data %}{{ data|safe }},{% endfor %}],
+
+            }]
+         },
+         options : {
+
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+               position: 'top',
+               labels : {
+                  padding: 10,
+                  fontColor: '#1d7af3',
+               }
+            },
+            tooltips: {
+               bodySpacing: 4,
+               mode:"nearest",
+               intersect: 0,
+               position:"nearest",
+               xPadding:10,
+               yPadding:10,
+               caretPadding:10
+            },
+            layout:{
+               padding:{left:15,right:15,top:15,bottom:15}
+            }
+         }
+      });
+
+
+		var seoul_aca_lineChart = new Chart(seoul_aca_lineChart, {
+			type: 'line',
+			data: {
+				labels: [{% for label in aca3_labels %}"{{ label|safe}}",{% endfor %}],
+				datasets: [{
+					label: "학원수",
+					yAxisID :'B',
+					borderColor: "#1d7af3",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#1d7af3",
+					pointBorderWidth: 2,
+					pointHoverRadius: 5,
+					pointHoverBorderWidth: 1,
+					pointRadius: 3,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [{% for data in aca3_data %}{{ data|safe}},{% endfor %}]
+				},{
+					label: "교원1인당 학생 수",
+					yAxisID :'A',
+					borderColor: "#fdaf4b",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#fdaf4b",
+					pointBorderWidth: 2,
+					pointHoverRadius: 5,
+					pointHoverBorderWidth: 1,
+					pointRadius: 3,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [{% for data in s_r4_data %}{{ data|safe}},{% endfor %}]
+				},
+				{
+					label: "강사 구인구직 수",
+					yAxisID :'A',
+					borderColor: "#59d05d",
+					pointBorderColor: "#FFF",
+					pointBackgroundColor: "#59d05d",
+					pointBorderWidth: 2,
+					pointHoverRadius: 5,
+					pointHoverBorderWidth: 1,
+					pointRadius: 3,
+					backgroundColor: 'transparent',
+					fill: true,
+					borderWidth: 2,
+					data: [{% for data in teacher1_data %}{{ data|safe}},{% endfor %}]
+				}]
+			},
+			options : {
+
+			scales :{
+				yAxes :[{
+				id: 'A',
+				type:'linear',
+				position:'left',
+				ticks :{
+					}
+				},{
+				id :'B',
+				type:'linear',
+				position : 'right',
+				ticks: {
+
+				fontColor:'#1d7af3'
+				}
+
+				}]
+			},
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					position: 'top',
+				},
+				tooltips: {
+					bodySpacing: 4,
+					mode:"nearest",
+					intersect: 0,
+					position:"nearest",
+					xPadding:10,
+					yPadding:10,
+					caretPadding:10
+				},
+				layout:{
+					padding:{left:10,right:10,top:10,bottom:10}
+				}
+			}
+		});
+
+<!--전체대비 상위 3개 지역 탭   -->
+var myBarChart = new Chart(total_money_barChart, {
+			type: 'bar',
+			data: {
+				labels: ['전국 평균','서울 평균','경기 평균'],
+				datasets : [{
+					label: "근로소득(원)",
+					backgroundColor: '#1d7af3',
+					borderColor: '#1d7af3',
+					data: [34501211,40154467,35671562],
+				}],
+			},
+			options: {
+			legend: {
+					position : 'bottom'
+				},
+				responsive: true,
+				maintainAspectRatio: false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				},
+			}
+		});
+		var myBarChart = new Chart(total_study_barChart, {
+			type: 'bar',
+			data: {
+				labels:['전국','서울','경기'],
+				datasets : [{
+					label: "특목고진학수",
+					backgroundColor: '#1d7af3',
+					borderColor: '#1d7af3',
+					data: [8479,1916,2102],
+				},{
+					label: "서울대합격수",
+					backgroundColor: '#59d05d',
+					borderColor: '#59d05d',
+					data: [3265,1243,728],
+				}]
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					position : 'bottom'
+				},
+				title: {
+					display: false,
+					text: '입시실적'
+				},
+				tooltips: {
+					mode: 'index',
+					intersect: false
+				},
+				responsive: true,
+				scales: {
+					xAxes: [{
+						stacked: true,
+					}],
+					yAxes: [{
+						stacked: true
+					}]
+				}
+			}
+		});
+
+		var myBarChart = new Chart(total_aca_barChart, {
+			type: 'bar',
+			data: {
+				labels: ['전국','서울','경기'],
+				datasets : [{
+					label: "학원수",
+					backgroundColor: '#1d7af3',
+					borderColor: '#1d7af3',
+					data: [85919,17878,22431],
+				}],
+			},
+			options: {
+			legend: {
+					position : 'bottom'
+				},
+				responsive: true,
+				maintainAspectRatio: false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				},
+			}
+		});
+		var myBarChart = new Chart(total_car_barChart, {
+			type: 'bar',
+			data: {
+				labels: ['전국','서울','경기'],
+				datasets : [{
+					label: "지하철역개수",
+					backgroundColor: '#1d7af3',
+					borderColor: '#1d7af3',
+					data: [937,332,224],
+				}],
+			},
+			options: {
+			legend: {
+					position : 'bottom'
+				},
+				responsive: true,
+				maintainAspectRatio: false,
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				},
+			}
+		});
+
+
+
+    </script>
+
+{% endblock javascripts %}
+

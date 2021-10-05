@@ -1,0 +1,98 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Maps {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+    <meta charset="utf-8">
+        <link href="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css" rel="stylesheet">
+        <script src="https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js"></script>
+
+{% endblock stylesheets %}
+
+{% block content %}
+<div class="content">
+    <div class="page-inner">
+        <h4 class="page-title text-center" style="font-size:40px">Dashboard</h4>
+      <div class="row">
+         <div class="col-md-8">
+            <div class="card card-transparent">
+               <div class="card-header">
+                    <div class="card-title text-center"style="font-family: 'Jua'">전국 서울대 합격자 비교</div>
+               </div>
+               <div class="card-body">
+                   <div class="mapcontainer">
+                       <div id='map' style='width: 100%; height: 600px;'></div>
+                   </div>
+               </div>
+            </div>
+         </div>
+          <div class="col-md-4">
+					<div class="card card-transparent">
+						<div class="card-header">
+							<div class="card-title text-center"style="font-family: 'Jua'">법정동명 서울대 합격자 순위</div>
+						</div>
+						<div class="card-body">
+
+							<table class="table mt-3">
+								<thead>
+									<tr>
+										<th scope="col">순위</th>
+										<th scope="col">법정동명</th>
+                                        <th scope="col">합격자 수</th>
+
+
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td>Mark</td>
+                                        <td>Mark</td>
+
+
+									</tr>
+									<tr>
+										<td>2</td>
+										<td>Jacob</td>
+
+
+									</tr>
+									<tr>
+										<td>3</td>
+										<td colspan="2">Larry the Bird</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+      </div>
+    </div>
+   </div>
+
+<!--
+<div id='map' style='width: 100%; height: 100%;'></div>
+-->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+   <!-- Atlantis DEMO methods, don't include it in your project! -->
+
+    <script>
+      mapboxgl.accessToken = 'pk.eyJ1Ijoid29va3lvIiwiYSI6ImNrbHoxcGt2ZDBxNW8ydXFrOWE5MDRrbDUifQ.L1osw4Ry17ZfxGsAssfHLA';
+      var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/wookyo/cku1bo48a3mb817qsjyms96m7',
+        center : [127.29 ,35.48],
+        zoom : 6.3,
+        bearing:-12,
+        pitch:45,
+        cursor_style: 'pointer',
+      });
+    </script>
+
+{% endblock javascripts %}
